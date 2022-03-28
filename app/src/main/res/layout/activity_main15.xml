@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/main15_pic1"
+        android:scaleType="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/userpicture"
+        />
+    <TextView
+        android:id="@+id/main15_edittext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/main15_pic1"
+        android:text="用户名"
+        android:clickable="true"
+        android:textSize="30sp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/main15_edittext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/main15_pic1"
+        android:text="设置"
+        android:clickable="true"
+        android:layout_marginLeft="300dp"
+        android:textSize="30sp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+
+
+    <View
+        android:id="@+id/main15_view1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/main15_edittext2"
+        android:layout_marginTop="25dp"
+        android:background="#000000">
+
+    </View>
+
+    <TextView
+        android:id="@+id/main15_edittext3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关注"
+        android:clickable="true"
+        android:textSize="30sp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/main15_view1"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/main15_edittext4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="粉丝"
+        android:clickable="true"
+        android:textSize="30sp"
+        android:layout_marginLeft="280dp"
+        android:layout_below="@+id/main15_view1"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+    <View
+        android:id="@+id/main15_view2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/main15_edittext4"
+        android:layout_marginTop="25dp"
+        android:background="#000000">
+
+    </View>
+
+    <TextView
+        android:id="@+id/main15_edittext5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="笔记"
+        android:clickable="true"
+        android:textSize="30sp"
+        android:textColor="#FF7F50"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/main15_view2"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/main15_edittext6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收藏"
+        android:clickable="true"
+        android:textSize="30sp"
+        android:layout_marginLeft="280dp"
+        android:layout_below="@+id/main15_view2"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+    <View
+        android:id="@+id/main15_view3"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/main15_edittext6"
+        android:layout_marginTop="25dp"
+        android:background="#000000">
+
+    </View>
+
+    <TextView
+        android:id="@+id/main15_edittext7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(笔记内容...)"
+        android:clickable="true"
+        android:textSize="40sp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/main15_view3"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        />
+
+
+
+    <Button
+        android:id="@+id/main_15button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="教程"
+        android:textSize="48sp" />
+
+    <Button
+        android:id="@+id/main_15button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="论坛"
+        android:textSize="48sp" />
+
+    <Button
+        android:id="@+id/main_15button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="我的"
+        android:textSize="48sp"/>
+</RelativeLayout>

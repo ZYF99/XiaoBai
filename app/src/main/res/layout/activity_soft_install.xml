@@ -1,0 +1,120 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/main6_edittext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="办公软件："
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/main6_edittext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext1"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:text="@string/Microsoft"
+        android:textSize="30sp"
+
+        />
+
+    <TextView
+        android:id="@+id/main6_edittext3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext2"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:text="@string/Office"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main6_edittext4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext3"
+        android:layout_marginLeft="20dp"
+        android:text="..."
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main6_edittext5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext4"
+        android:text="地信专业软件："
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/main6_edittext6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext5"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:text="@string/ArcGis"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main6_edittext7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext6"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:text="@string/ENVI"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main6_edittext8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext7"
+        android:layout_marginLeft="20dp"
+        android:text="..."
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main6_edittext9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext8"
+        android:text="计算机专业软件："
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/main6_edittext10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext9"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:text="@string/VisualStudio"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main6_edittext11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext10"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:text="@string/MYSQL"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main6_edittext12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main6_edittext11"
+        android:layout_marginLeft="20dp"
+        android:text="..."
+        android:textSize="30sp" />
+</RelativeLayout>
