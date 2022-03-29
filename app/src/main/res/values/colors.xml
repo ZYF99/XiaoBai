@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#6DB39D</color>
-    <color name="purple_500">#585858</color>
-    <color name="purple_700">#585858</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#BA2FACA8</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#BA2FACA8</color>
+    <color name="colorFFC300">#BA2FACA8</color>
+
+    <color name="colorHomeText">#5E4200</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="colorGray">#8AB3B3B3</color>
+    <!--<color name="colorGreen">#437F49</color>-->
+
+    <color name="colorSelected">#FFC400</color>
+    <color name="colorUnSelected">#656565</color>
+    <color name="text_tip">#FFFFFF</color>
+    <color name="text_title">#FFFFFF</color>
+    <color name="text_first">#333333</color>
+    <color name="text_second">#999999</color>
+    <color name="text_third">#6F6F6F</color>
+    <color name="text_hint">#C9C9C9</color>
+    <color name="colorPressed">#FFC400</color>
+    <color name="colorUnPressed">#656565</color>
+
+    <color name="colorBottomButtonText">#4F4121</color>
+
+    <color name="colorGrey_999999">#999999</color>
+    <color name="colorGrey_656565">#656565</color>
+    <color name="colorGrey_666666">#666666</color>
+
+    <color name="desk_color_arrived">#FFC300</color>
+    <color name="desk_color_none">#FF999999</color>
+    <color name="desk_color_not_arrive">#FFA37A</color>
+
+    <color name="colorMale">#00BCD4</color>
+    <color name="colorFemale">#E91E63</color>
+
 </resources>

@@ -9,11 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import com.example.myapplication.FansActivity;
-import com.example.myapplication.MainActivity17;
+import com.example.myapplication.SettingActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.TabFragmentAdapter;
+import com.google.android.material.tabs.TabLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MineFragment extends Fragment {
+
+    ViewPager vpForum;
+    TabLayout tlForum;
+    TabFragmentAdapter vpAdapter;
+    List<Fragment> forumFragments;
+    List<String> titles;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,7 +39,7 @@ public class MineFragment extends Fragment {
         //跳转进入设置页面
         TextView tvSetting = view.findViewById((R.id.tv_setting));
         tvSetting.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getContext(), MainActivity17.class);
+            Intent intent = new Intent(getContext(), SettingActivity.class);
             startActivity(intent);
         });
 
@@ -37,30 +49,18 @@ public class MineFragment extends Fragment {
             startActivity(intent);
         });
 
-        /*
-        //跳转进入笔记页面
-        TextView forthEdit = view.findViewById((R.id.main5_edittext5));
-        forthEdit = view.findViewById((R.id.main5_edittext5));
-        forthEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MainActivity15.class);
-                startActivity(intent);
-
-            }
-        });
-
-        //跳转进入软件安装页面
-        TextView fifthEdit = view.findViewById((R.id.main5_edittext6));
-        fifthEdit = view.findViewById((R.id.main5_edittext6));
-        fifthEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MainActivity16.class);
-                startActivity(intent);
-
-            }
-        });*/
-
+        vpForum = view.findViewById(R.id.vp_forum);
+        tlForum = view.findViewById(R.id.tl_forum);
+        forumFragments = new ArrayList<>();
+        forumFragments.add(new InnerForumFragment("笔记"));
+        forumFragments.add(new InnerForumFragment("收藏"));
+        forumFragments.add(new InnerForumFragment("赞过"));
+        titles = new ArrayList<>();
+        titles.add("笔记");
+        titles.add("收藏");
+        titles.add("赞过");
+        vpAdapter = new TabFragmentAdapter(getChildFragmentManager(), forumFragments, titles);
+        vpForum.setAdapter(vpAdapter);
+        tlForum.setupWithViewPager(vpForum);
     }
 }

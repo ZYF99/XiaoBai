@@ -1,64 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >\
+    android:orientation="vertical">
 
-
-    <ImageView
-        android:scaleType="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/smile"
-        />
-
-
-
-
-    <EditText
-        android:id="@+id/et_1"
+    <fragment
+        android:id="@+id/nav_host_fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="请输入账号"
-        android:textSize="25sp"
-        />
-
-
-
-    <EditText
-        android:id="@+id/et_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="请输入密码"
-        android:textSize="25sp"
-        android:inputType="numberPassword" />
-
-    <CheckBox
-        android:id="@+id/cb_ischeck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="记住用户名密码"
-        android:layout_gravity="center"
-        />
-
-    <Button
-        android:id="@+id/loadin"
-        android:layout_width="80dp"
-        android:layout_gravity="center"
-        android:layout_height="60dp"
-        android:text="登录" />
-
-    <TextView
-        android:id="@+id/tv_forget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="280dp"
-        android:layout_marginTop="120dp"
-        android:text="忘记密码"
-        android:textSize="25sp"/>
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/top_login" />
 
 </LinearLayout>

@@ -21,7 +21,7 @@ public class ForumFragment extends Fragment {
     TabLayout tlForum;
     TabFragmentAdapter vpAdapter;
     List<Fragment> forumFragments;
-
+    List<String> titles;
 
     @Nullable
     @Override
@@ -37,7 +37,10 @@ public class ForumFragment extends Fragment {
         forumFragments = new ArrayList<>();
         forumFragments.add(new InnerForumFragment("关注"));
         forumFragments.add(new InnerForumFragment("发现"));
-        vpAdapter = new TabFragmentAdapter(getChildFragmentManager(), forumFragments);
+        titles = new ArrayList<>();
+        titles.add("关注");
+        titles.add("发现");
+        vpAdapter = new TabFragmentAdapter(getChildFragmentManager(), forumFragments,titles);
         vpForum.setAdapter(vpAdapter);
         tlForum.setupWithViewPager(vpForum);
     }

@@ -1,39 +1,43 @@
 package com.example.myapplication;
-//我的——粉丝界面
+
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+import com.example.myapplication.adapter.TabFragmentAdapter;
+import com.example.myapplication.fragment.InnerPersonFragment;
+import com.google.android.material.tabs.TabLayout;
+import java.util.ArrayList;
+import java.util.List;
 
+//我的——粉丝界面
 public class FansActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
+    ViewPager vpPerson;
+    TabLayout tlPerson;
+    TabFragmentAdapter vpAdapter;
+    List<Fragment> innerFragments;
+    List<String> titles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fans);
-        //跳转返回我的页面
-        TextView firstEdit = findViewById((R.id.main14_edittext9));
-        firstEdit=findViewById((R.id.main14_edittext9));
-        firstEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(FansActivity.this,MainActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        //跳转进入关注页面
-        TextView secondEdit = findViewById((R.id.main14_edittext2));
-        secondEdit=findViewById((R.id.main14_edittext2));
-        secondEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(FansActivity.this, FocusActivity.class);
-                startActivity(intent);
-
-            }
-        });
+        toolbar = findViewById(R.id.tool_bar);
+        //退出进入我的页面
+        toolbar.setNavigationOnClickListener(view -> finish());
+        vpPerson = findViewById(R.id.vp_person);
+        tlPerson = findViewById(R.id.tl_person);
+        innerFragments = new ArrayList<>();
+        innerFragments.add(new InnerPersonFragment("粉丝"));
+        innerFragments.add(new InnerPersonFragment("关注"));
+        titles = new ArrayList<>();
+        titles.add("粉丝");
+        titles.add("关注");
+        vpAdapter = new TabFragmentAdapter(getSupportFragmentManager(), innerFragments, titles);
+        vpPerson.setAdapter(vpAdapter);
+        tlPerson.setupWithViewPager(vpPerson);
     }
 }

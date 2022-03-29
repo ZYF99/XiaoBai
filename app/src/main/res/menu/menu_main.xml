@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_home"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_tech"
         android:title="教程" />
     <item
         android:id="@+id/menu_forum"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_forum"
         android:title="论坛" />
     <item
         android:id="@+id/menu_mine"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_mine"
         android:title="我的" />
 </menu>

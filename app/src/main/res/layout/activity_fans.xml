@@ -1,187 +1,56 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/main14_edittext9"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="返回"
-        android:clickable="true"
-        android:textSize="30sp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:id="@+id/main14_edittext1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="用户名"
-        android:clickable="true"
-        android:layout_toRightOf="@id/main14_edittext9"
-        android:layout_marginLeft="85dp"
-        android:textSize="30sp"
-        android:layout_marginTop="15dp"
-        android:textStyle="bold"
-        />
+        android:background="@color/white">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            app:title="昵称" />
 
-    <View
-        android:id="@+id/main14_view1"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/main14_edittext1"
-        android:layout_marginTop="15dp"
-        android:background="#000000">
-
-    </View>
-
-    <TextView
-        android:id="@+id/main14_edittext2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="关注"
-        android:clickable="true"
-        android:textSize="30sp"
-        android:layout_marginLeft="50dp"
-        android:layout_below="@+id/main14_view1"
-        android:layout_marginTop="15dp"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:id="@+id/main14_edittext3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="粉丝"
-        android:textColor="#FF7F50"
-        android:clickable="true"
-        android:textSize="30sp"
-        android:layout_marginLeft="280dp"
-        android:layout_below="@+id/main14_view1"
-        android:layout_marginTop="15dp"
-        android:textStyle="bold"
-        />
-    <View
-        android:id="@+id/main14_view2"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/main14_edittext3"
-        android:layout_marginTop="15dp"
-        android:background="#000000">
-
-    </View>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/main_14searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:layout_below="@id/main14_view2"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:queryHint="请输入搜索内容"></androidx.appcompat.widget.SearchView>
+        android:layout_marginEnd="16dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="请输入搜索内容" />
 
-
-
-
-
-
-    <ImageView
-        android:id="@+id/main14_pic1"
-        android:scaleType="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_person"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_14searchView"
-        android:src="@mipmap/userpicture"
-        />
+        android:layout_marginTop="16dp">
 
-    <TextView
-        android:id="@+id/main14_edittext4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main_14searchView"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/main14_pic1"
-        android:clickable="true"
-        android:text="用户1"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-    <ImageView
-        android:id="@+id/main14_pic2"
-        android:scaleType="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main14_pic1"
-        android:src="@mipmap/userpicture"
-        />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="粉丝" />
 
-    <TextView
-        android:id="@+id/main14_edittext5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main14_edittext4"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/main14_pic2"
-        android:clickable="true"
-        android:text="用户2"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-    <ImageView
-        android:id="@+id/main14_pic3"
-        android:scaleType="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main14_pic2"
-        android:src="@mipmap/userpicture"
-        />
-    <TextView
-        android:id="@+id/main14_edittext6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main14_edittext5"
-        android:layout_toRightOf="@+id/main14_pic3"
-        android:text="用户3"
-        android:clickable="true"
-        android:textSize="30sp"
-        android:layout_marginTop="25dp"
-        android:textStyle="bold" />
-    <ImageView
-        android:id="@+id/main14_pic4"
-        android:scaleType="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main14_pic3"
-        android:src="@mipmap/userpicture"
-        />
-    <TextView
-        android:id="@+id/main14_edittext7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main14_edittext6"
-        android:layout_toRightOf="@+id/main14_pic4"
-        android:text="用户4"
-        android:clickable="true"
-        android:textSize="30sp"
-        android:layout_marginTop="25dp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/main14_edittext8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main14_edittext7"
-        android:text="..."
-        android:textSize="60sp"
-        />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="关注" />
 
+    </com.google.android.material.tabs.TabLayout>
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_person"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -43,7 +43,7 @@ public class MainActivity15 extends AppCompatActivity {
         firstEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity15.this,MainActivity17.class);
+                Intent intent=new Intent(MainActivity15.this, SettingActivity.class);
                 startActivity(intent);
 
             }
