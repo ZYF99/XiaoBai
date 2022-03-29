@@ -7,19 +7,25 @@
 
     <fragment
         android:id="@+id/tech_fragment"
-        android:name="com.example.myapplication.fragment.TechFragment"
+        android:name="com.example.myapplication.ui.teach.TechFragment"
         android:label="TechFragment"
         tools:layout="@layout/fragment_tech" />
 
     <fragment
         android:id="@+id/forum_fragment"
-        android:name="com.example.myapplication.fragment.ForumFragment"
+        android:name="com.example.myapplication.ui.forum.ForumFragment"
         android:label="ForumFragment"
         tools:layout="@layout/fragment_forum" />
 
     <fragment
+        android:id="@+id/message_fragment"
+        android:name="com.example.myapplication.ui.message.MessageFragment"
+        android:label="MessageFragment"
+        tools:layout="@layout/fragment_message" />
+
+    <fragment
         android:id="@+id/mine_fragment"
-        android:name="com.example.myapplication.fragment.MineFragment"
+        android:name="com.example.myapplication.ui.mine.MineFragment"
         android:label="MineFragment"
         tools:layout="@layout/fragment_mine" />
 </navigation>

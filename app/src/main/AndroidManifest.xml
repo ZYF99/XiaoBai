@@ -11,40 +11,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SettingActivity"
+            android:name=".ui.setting.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity16"
+            android:name=".ui.person.FansActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity15"
+            android:name=".ui.teach.ComputerStandardActivity"
             android:exported="false" />
         <activity
-            android:name=".FansActivity"
+            android:name=".ui.teach.SoftWareActivity"
             android:exported="false" />
         <activity
-            android:name=".FocusActivity"
+            android:name=".ui.teach.FileManageActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity12"
+            android:name=".ui.teach.SoftInstallActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity9"
-            android:exported="false" />
+            android:name=".ui.modifypassword.ModifyPasswordActivity"
+            android:exported="false"/>
         <activity
-            android:name=".MainActivity8"
-            android:exported="false" />
+            android:name=".ui.personinfo.PersonInfoActivity"
+            android:exported="false"/>
         <activity
-            android:name=".FileManageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SoftInstallActivity"
-            android:exported="false" />
+            android:name=".ui.secret.SecretActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="false"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
