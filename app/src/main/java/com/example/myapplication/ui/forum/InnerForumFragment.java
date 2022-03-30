@@ -43,7 +43,7 @@ public class InnerForumFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvForum = view.findViewById(R.id.rv_list);
-        forumRecyclerAdapter = new ForumRecyclerAdapter(getContext());
+        forumRecyclerAdapter = new ForumRecyclerAdapter();
         rvForum.setLayoutManager(new LinearLayoutManager(getContext()));
         rvForum.setAdapter(forumRecyclerAdapter);
         initList();
@@ -55,7 +55,7 @@ public class InnerForumFragment extends Fragment {
         forumList.add(new Forum("", "", "", imgList));
         forumList.add(new Forum("", "", "", imgList));
         forumList.add(new Forum("", "", "", imgList));
-        forumRecyclerAdapter.replaceList(forumList);
+        forumRecyclerAdapter.replaceData(forumList);
     }
 
 }

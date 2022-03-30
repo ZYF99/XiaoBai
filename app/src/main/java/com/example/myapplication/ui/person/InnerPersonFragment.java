@@ -43,7 +43,7 @@ public class InnerPersonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvPerson = view.findViewById(R.id.rv_list);
-        personRecyclerAdapter = new PersonRecyclerAdapter(getContext());
+        personRecyclerAdapter = new PersonRecyclerAdapter();
         rvPerson.setLayoutManager(new LinearLayoutManager(getContext()));
         rvPerson.setAdapter(personRecyclerAdapter);
         initList();
@@ -55,7 +55,7 @@ public class InnerPersonFragment extends Fragment {
         personList.add(new Person("", ""));
         personList.add(new Person("", ""));
         personList.add(new Person("", ""));
-        personRecyclerAdapter.replaceList(personList);
+        personRecyclerAdapter.replaceData(personList);
     }
 
 }

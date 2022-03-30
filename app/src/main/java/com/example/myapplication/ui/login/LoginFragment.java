@@ -1,21 +1,18 @@
 package com.example.myapplication.ui.login;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.ActivityLoginBinding;
 import com.example.myapplication.databinding.FragmentLoginBinding;
+import com.example.myapplication.manager.ApiService;
+import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.base.BaseFragment;
+import com.example.myapplication.manager.RetrofitHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
 
@@ -27,16 +24,34 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
     @Override
     public void initView(View view) {
         //登录按钮
-        binding.btnLogin.setOnClickListener(
-                view1 -> getContext().startActivity(
-                        new Intent(getContext(), MainActivity.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-        );
+        binding.btnLogin.setOnClickListener(view12 -> {
+            login();
+        });
 
         //去注册按钮
         binding.btnRegister.setOnClickListener(
                 view1 -> Navigation.findNavController(view).navigate(R.id.register_fragment)
         );
     }
+
+    private void login() {
+        RetrofitHelper.getApiService()
+                .login(
+                        binding.etAccount.getText().toString(),
+                        binding.etPassword.getText().toString()
+                )
+                .enqueue(new Callback<ResultModel<String>>() {
+                    @Override
+                    public void onResponse(Call<ResultModel<String>> call, Response<ResultModel<String>> response) {
+                        Log.d("!!!!!login success", response.body().getMsg());
+                        MainActivity.jumpToMain(getContext());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultModel<String>> call, Throwable t) {
+                        Log.e("!!!!!login failed", t.getMessage());
+                    }
+                });
+    }
+
 }

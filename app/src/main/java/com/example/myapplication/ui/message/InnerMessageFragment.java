@@ -4,17 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.myapplication.R;
 import com.example.myapplication.ui.adapter.MessageRecyclerAdapter;
 import com.example.myapplication.model.Message;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +40,7 @@ public class InnerMessageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvMessage = view.findViewById(R.id.rv_list);
-        messageRecyclerAdapter = new MessageRecyclerAdapter(getContext());
+        messageRecyclerAdapter = new MessageRecyclerAdapter();
         rvMessage.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMessage.setAdapter(messageRecyclerAdapter);
         initList();
@@ -54,7 +51,7 @@ public class InnerMessageFragment extends Fragment {
         messageList.add(new Message("", ""));
         messageList.add(new Message("", ""));
         messageList.add(new Message("", ""));
-        messageRecyclerAdapter.replaceList(messageList);
+        messageRecyclerAdapter.replaceData(messageList);
     }
 
 }
