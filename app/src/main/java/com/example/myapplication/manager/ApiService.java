@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -33,5 +34,11 @@ public interface ApiService {
     Call<ResultModel<ResponseBody>> sendEmailCodeInResetPassword(@Query("email") String email);
 
     @GET("myWeb/user/getLoginUserInfo")
+    @Headers("token:xxxxxxx")
     Call<ResponseBody> getUserInfo();
+
+    @GET("myWeb/user/getRongCloudToken")
+    @Headers("token:xxxxxxx")
+    Call<ResultModel<String>> getRongCloudToken();
+
 }
