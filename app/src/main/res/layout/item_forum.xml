@@ -27,74 +27,86 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/cell_author_portrait"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/icon_mine"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/cell_author_portrait"
-                    app:layout_constraintStart_toEndOf="@+id/cell_author_portrait"
-                    app:layout_constraintTop_toTopOf="@+id/cell_author_portrait">
+                    <ImageView
+                        android:id="@+id/cell_author_portrait"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon_mine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_dynamic_name"
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="秋风"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/cell_author_portrait"
+                        app:layout_constraintStart_toEndOf="@+id/cell_author_portrait"
+                        app:layout_constraintTop_toTopOf="@+id/cell_author_portrait">
+
+                        <TextView
+                            android:id="@+id/tv_dynamic_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="秋风"
+                            android:textColor="@color/black"
+                            tools:text="秋风" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#888888"
+                            android:textSize="12sp"
+                            tools:text="昨天" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_dynamic_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="在许多面向对象的命令式界面工具包中，您可以通过实例化微件树来初始化界面。您通常通过膨胀 XML 布局文件来实现此目的。每个微件都维护自己的内部状态，并且提供 getter 和 setter 方法，允许应用逻辑与微件进行交互。"
                         android:textColor="@color/black"
-                        tools:text="秋风" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                        tools:text="正文" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#888888"
-                        android:textSize="12sp"
-                        tools:text="昨天" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_dynamic_content"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
-                    android:lineSpacingExtra="4dp"
-                    android:text="正文"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                    tools:text="正文" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rec_img"
+                <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
+                    android:id="@+id/rv_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:nestedScrollingEnabled="false"
-                    android:scrollbars="none"
+                    android:layout_margin="24dp"
+                    android:orientation="horizontal"
+                    app:bga_snpl_editable="false"
+                    app:bga_snpl_itemCornerRadius="2dp"
+                    app:bga_snpl_itemSpanCount="3"
+                    app:bga_snpl_itemWhiteSpacing="4dp"
+                    app:bga_snpl_itemWidth="0dp"
+                    app:bga_snpl_maxItemCount="9"
+                    app:bga_snpl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+                    app:bga_snpl_plusEnable="false"
+                    app:bga_snpl_sortable="false"
+                    app:layout_constraintBottom_toTopOf="@id/frame_like"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_content" />
@@ -110,8 +122,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toTopOf="@id/lin_btn"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rec_img">
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -125,7 +136,6 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:id="@+id/lin_btn"
                     android:layout_width="match_parent"
@@ -133,9 +143,9 @@
                     android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/frame_like">
+                    app:layout_constraintStart_toStartOf="parent">
 
 
                     <TextView
@@ -201,7 +211,8 @@
 
                 </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
 
         </androidx.cardview.widget.CardView>
 

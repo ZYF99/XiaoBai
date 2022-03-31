@@ -1,8 +1,11 @@
 package com.example.myapplication.manager;
 
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.model.login.ResetPasswordRequestModel;
 import com.example.myapplication.model.login.RegisterRequestModel;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -19,7 +22,7 @@ public interface ApiService {
     //*********************************************账户相关******************************************
     @FormUrlEncoded
     @POST("myWeb/login")
-    Call<ResultModel<String>> login(@Field("username") String userName, @Field("password") String password);
+    Call<ResultModel<LoginResultModel>> login(@Field("email") String email, @Field("password") String password);
 
     @POST("myWeb/sys/registerUser")
     Call<ResultModel<ResponseBody>> register(@Body RegisterRequestModel registerRequestModel);
@@ -28,17 +31,15 @@ public interface ApiService {
     Call<ResultModel<ResponseBody>> resetPassword(@Body ResetPasswordRequestModel resetPasswordRequestModel);
 
     @GET("myWeb/sys/sendVerificationCodeForRegister")
-    Call<ResultModel<ResponseBody>> sendEmailCodeInRegister(@Query("email") String email);
+    Call<ResultModel<ResponseBody>> sendEmailCodeForRegister(@Query("email") String email);
 
-    @GET("myWeb/sys/sendVerificationCodeForRegister")
-    Call<ResultModel<ResponseBody>> sendEmailCodeInResetPassword(@Query("email") String email);
+    @GET("myWeb/sys/sendVerificationCodeForReset")
+    Call<ResultModel<ResponseBody>> sendEmailCodeForResetPassword(@Query("email") String email);
 
     @GET("myWeb/user/getLoginUserInfo")
-    @Headers("token:xxxxxxx")
-    Call<ResponseBody> getUserInfo();
+    Call<ResultModel<ResponseBody>> getUserInfo();
 
     @GET("myWeb/user/getRongCloudToken")
-    @Headers("token:xxxxxxx")
     Call<ResultModel<String>> getRongCloudToken();
 
 }

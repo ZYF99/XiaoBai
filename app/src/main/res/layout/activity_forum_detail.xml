@@ -27,6 +27,7 @@
                 android:id="@+id/tool_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:title="秋风"
                 app:navigationIcon="@drawable/ic_arrow_back_black_24dp" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -54,19 +55,32 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
+                    android:background="#00FFFFFF"
                     android:gravity="start"
-                    android:text="xxxxxx"
+                    android:text="在许多面向对象的命令式界面工具包中，您可以通过实例化微件树来初始化界面。您通常通过膨胀 XML 布局文件来实现此目的。每个微件都维护自己的内部状态，并且提供 getter 和 setter 方法，允许应用逻辑与微件进行交互。"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/img_rec"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
+                    android:id="@+id/snpl_moment_add_photos"
+                    style="@style/MatchAuto"
                     android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"
+                    app:bga_snpl_deleteDrawable="@mipmap/bga_pp_ic_delete"
+                    app:bga_snpl_deleteDrawableOverlapQuarter="false"
+                    app:bga_snpl_editable="false"
+                    app:bga_snpl_itemCornerRadius="2dp"
+                    app:bga_snpl_itemSpanCount="3"
+                    app:bga_snpl_itemWhiteSpacing="4dp"
+                    app:bga_snpl_itemWidth="0dp"
+                    app:bga_snpl_maxItemCount="9"
+                    app:bga_snpl_otherWhiteSpacing="100dp"
+                    app:bga_snpl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+                    app:bga_snpl_plusDrawable="@mipmap/bga_pp_ic_plus"
+                    app:bga_snpl_plusEnable="true"
+                    app:bga_snpl_sortable="true" />
 
 
                 <LinearLayout
@@ -95,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="0"
-                    android:text='xxxx'
+                    android:text='评论'
                     android:textColor="@color/text_third"
                     android:textSize="14sp" />
 
@@ -103,6 +117,8 @@
                     android:id="@+id/comment_rec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_comment"
+                    tools:itemCount="3"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0"
                     android:minHeight="100dp"

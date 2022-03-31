@@ -1,17 +1,21 @@
 package com.example.myapplication.ui.login;
 
 import android.view.View;
+
 import androidx.navigation.Navigation;
+
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentRegisterBinding;
 import com.example.myapplication.manager.RetrofitHelper;
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.login.RegisterRequestModel;
 import com.example.myapplication.ui.base.BaseFragment;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
+import com.example.myapplication.util.CountDownTimerUtil;
 
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
 
@@ -23,27 +27,57 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
     @Override
     public void initView(View view) {
         //注册并登录按钮
-        binding.btnNext.setOnClickListener(view12 -> {
+        binding.btnNext.setOnClickListener(view12 -> register());
 
-        });
+        //验证码按钮
+        binding.tvSendEmail.setOnClickListener(view13 -> triggerSendEmailCode());
 
         //返回登陆按钮
-        binding.btnBack.setOnClickListener(view1 -> {
-            Navigation.findNavController(view).popBackStack();
-        });
+        binding.btnBack.setOnClickListener(view1 -> Navigation.findNavController(view).popBackStack());
     }
 
-    private void sendEmailCode(){
-        RetrofitHelper.getApiService()
-                .sendEmailCodeInRegister(binding.etEmail.getText().toString())
-                .enqueue(new Callback<ResultModel<ResponseBody>>() {
+    //触发验证码发送
+    private void triggerSendEmailCode() {
+        ApiUtil.request(RetrofitHelper.getApiService().sendEmailCodeForRegister(binding.etEmail.getText().toString()),
+                new ApiAction<ResultModel<ResponseBody>>() {
                     @Override
-                    public void onResponse(Call<ResultModel<ResponseBody>> call, Response<ResultModel<ResponseBody>> response) {
-
+                    public void onSuccess(ResultModel<ResponseBody> response) {
+                        CountDownTimerUtil.sendEmailCodeTimer(binding.tvSendEmail).start();
                     }
+                });
+    }
 
+    //注册
+    private void register() {
+        ApiUtil.request(RetrofitHelper.getApiService()
+                        .register(
+                                new RegisterRequestModel(
+                                        binding.etEmail.getText().toString(),
+                                        binding.editPassword.getText().toString(),
+                                        binding.etName.getText().toString(),
+                                        binding.etVerifyCode.getText().toString()
+                                )
+                        ),
+                new ApiAction<ResultModel<ResponseBody>>() {
                     @Override
-                    public void onFailure(Call<ResultModel<ResponseBody>> call, Throwable t) {
+                    public void onSuccess(ResultModel<ResponseBody> response) {
+
+                        /*ApiUtil.request(
+                                RetrofitHelper.getApiService().login(
+                                        binding.etEmail.getText().toString(),
+                                        binding.editPassword.getText().toString()
+                                ),
+                                new ApiAction<ResultModel<String>>() {
+                                    @Override
+                                    public void onSuccess(ResultModel<String> response) {
+                                        //connectToRongCloud(); todo 用这个 不要用下面这行
+                                        loginToRongCloud("xxxxxx");
+                                        MainActivity.jumpToMain(getContext());
+                                        Hawk.put(HawkKey.KEY_EMAIL, binding.etAccount.getText().toString());
+                                        Hawk.put(HawkKey.KEY_PASSWORD, binding.etPassword.getText().toString());
+                                        Hawk.put(HawkKey.KEY_HAS_LOGIN, true);
+                                    }
+                                });*/
 
                     }
                 });

@@ -151,7 +151,7 @@
                     app:helperTextTextAppearance="@style/HintHelper">
 
                     <EditText
-                        android:id="@+id/edit_account"
+                        android:id="@+id/et_verify_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -168,6 +168,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:id="@+id/tv_send_email"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="12dp"

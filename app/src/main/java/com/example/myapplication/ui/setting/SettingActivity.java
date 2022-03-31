@@ -9,6 +9,8 @@ import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.modifypassword.ModifyPasswordActivity;
 import com.example.myapplication.ui.personinfo.PersonInfoActivity;
 import com.example.myapplication.ui.secret.SecretActivity;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
 
 //我的——设置界面
 public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
@@ -34,6 +36,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
                     new Intent(SettingActivity.this, LoginActivity.class)
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
             );
+            Hawk.put(HawkKey.KEY_HAS_LOGIN,false);
         });
     }
 }

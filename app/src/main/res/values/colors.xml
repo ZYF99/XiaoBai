@@ -35,5 +35,6 @@
 
     <color name="colorMale">#00BCD4</color>
     <color name="colorFemale">#E91E63</color>
+    <color name="bga_pp_eighteen_maskColor">#00FFFFFF</color>
 
 </resources>

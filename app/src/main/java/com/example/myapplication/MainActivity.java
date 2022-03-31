@@ -2,15 +2,22 @@ package com.example.myapplication;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.manager.ApiService;
 import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.base.BaseActivity;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
+
 import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,21 +64,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         });
 
         //拉取用户信息
-        RetrofitHelper.getRetrofit().create(ApiService.class)
-                .getUserInfo()
-                .enqueue(new Callback<ResponseBody>() {
+        ApiUtil.request(RetrofitHelper.getApiService().getUserInfo(),
+                new ApiAction<ResultModel<ResponseBody>>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        try {
-                            Log.d("!!!!!login success", response.body().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    public void onSuccess(ResultModel<ResponseBody> response) {
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("!!!!!login failed", t.getMessage());
                     }
                 });
 

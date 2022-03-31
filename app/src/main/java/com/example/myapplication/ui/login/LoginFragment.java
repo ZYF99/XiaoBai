@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.login;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.Navigation;
@@ -10,14 +9,16 @@ import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentLoginBinding;
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.ui.base.BaseFragment;
 import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
 
@@ -28,6 +29,10 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
 
     @Override
     public void initView(View view) {
+
+        binding.etAccount.setText(Hawk.get(HawkKey.KEY_EMAIL, ""));
+        binding.etPassword.setText(Hawk.get(HawkKey.KEY_PASSWORD, ""));
+
         //登录按钮
         binding.btnLogin.setOnClickListener(view12 -> {
             login();
@@ -40,44 +45,36 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
     }
 
     private void login() {
-        RetrofitHelper.getApiService()
-                .login(
+        ApiUtil.request(
+                RetrofitHelper.getApiService().login(
                         binding.etAccount.getText().toString(),
                         binding.etPassword.getText().toString()
-                )
-                .enqueue(new Callback<ResultModel<String>>() {
+                ),
+                new ApiAction<ResultModel<LoginResultModel>>() {
                     @Override
-                    public void onResponse(Call<ResultModel<String>> call, Response<ResultModel<String>> response) {
-                        Log.d("!!!!!login success", response.body().getMsg());
+                    public void onSuccess(ResultModel<LoginResultModel> response) {
+
                         //connectToRongCloud(); todo 用这个 不要用下面这行
                         loginToRongCloud("xxxxxx");
                         MainActivity.jumpToMain(getContext());
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResultModel<String>> call, Throwable t) {
-                        Log.e("!!!!!login failed", t.getMessage());
+                        Hawk.put(HawkKey.KEY_EMAIL, binding.etAccount.getText().toString());
+                        Hawk.put(HawkKey.KEY_PASSWORD, binding.etPassword.getText().toString());
+                        Hawk.put(HawkKey.KEY_TOKEN, response.getData().getToken());
+                        Hawk.put(HawkKey.KEY_HAS_LOGIN, true);
                     }
                 });
     }
 
     private void connectToRongCloud() {
-        RetrofitHelper.getApiService().getRongCloudToken().enqueue(
-                new Callback<ResultModel<String>>() {
-                    @Override
-                    public void onResponse(Call<ResultModel<String>> call, Response<ResultModel<String>> response) {
-                        loginToRongCloud(response.body().getData());
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResultModel<String>> call, Throwable t) {
-
-                    }
-                }
-        );
+        ApiUtil.request(RetrofitHelper.getApiService().getRongCloudToken(), new ApiAction<ResultModel<String>>() {
+            @Override
+            public void onSuccess(ResultModel<String> response) {
+                loginToRongCloud(response.getData());
+            }
+        });
     }
 
-    private void loginToRongCloud(String token1) {
+    public static void loginToRongCloud(String token1) {
         // 已为您替换开发者后台获取到的 userid 为 1 的用户 Token
         String token = "SrfwuVVXoF+ueTp7XNYV6sXTcHflFFyM@zwch.cn.rongnav.com;zwch.cn.rongcfg.com";
         RongIM.connect(token, new RongIMClient.ConnectCallback() {

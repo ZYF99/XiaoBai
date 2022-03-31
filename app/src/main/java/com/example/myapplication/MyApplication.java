@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.app.Application;
+
 import com.example.myapplication.manager.RetrofitHelper;
+import com.orhanobut.hawk.Hawk;
 
 import io.rong.imkit.RongIM;
 
@@ -16,9 +18,10 @@ public class MyApplication extends Application {
         instance = this;
         RetrofitHelper.getInstance().init();
         initRongCloud();
+        Hawk.init(instance).build();
     }
 
-    private void initRongCloud(){
+    private void initRongCloud() {
         // 已为您替换为开发环境的 App Key
         String appKey = "pvxdm17jpesvr";
         RongIM.init(MyApplication.instance, appKey);

@@ -4,14 +4,12 @@ public class RegisterRequestModel {
     String email;
     String password;
     String realName;
-    String username;
     String verificationCode;
 
-    public RegisterRequestModel(String email, String password, String realName, String username, String verificationCode) {
+    public RegisterRequestModel(String email, String password, String realName, String verificationCode) {
         this.email = email;
         this.password = password;
         this.realName = realName;
-        this.username = username;
         this.verificationCode = verificationCode;
     }
 
@@ -37,14 +35,6 @@ public class RegisterRequestModel {
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getVerificationCode() {
