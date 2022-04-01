@@ -1,61 +1,59 @@
 package com.example.myapplication.ui.person;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.myapplication.R;
+import com.example.myapplication.databinding.FragmentInnerListBinding;
+import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.account.FetchFansAndFocusResultModel;
 import com.example.myapplication.ui.adapter.PersonRecyclerAdapter;
 import com.example.myapplication.model.Person;
-
-import java.util.ArrayList;
+import com.example.myapplication.ui.base.BaseFragment;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
 import java.util.List;
 
 //内嵌的人物列表界面
-public class InnerPersonFragment extends Fragment {
+public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> {
 
     String tag;
-    RecyclerView rvPerson;
     PersonRecyclerAdapter personRecyclerAdapter;
 
     public InnerPersonFragment() {
 
     }
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_inner_list;
+    }
+
     public InnerPersonFragment(String tag) {
         this.tag = tag;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_inner_list, null);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        rvPerson = view.findViewById(R.id.rv_list);
+    public void initView(View view) {
         personRecyclerAdapter = new PersonRecyclerAdapter();
-        rvPerson.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvPerson.setAdapter(personRecyclerAdapter);
+        binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvList.setAdapter(personRecyclerAdapter);
         initList();
     }
 
     private void initList() {
-        List<Person> personList = new ArrayList<>();
-        personList.add(new Person("", ""));
-        personList.add(new Person("", ""));
-        personList.add(new Person("", ""));
-        personList.add(new Person("", ""));
-        personRecyclerAdapter.replaceData(personList);
+        ApiUtil.request(RetrofitHelper.getApiService().fetchFansAndFollows(Hawk.get(HawkKey.KEY_NAME)),
+                new ApiAction<ResultModel<FetchFansAndFocusResultModel>>() {
+                    @Override
+                    public void onSuccess(ResultModel<FetchFansAndFocusResultModel> response) {
+                        List<Person> list;
+                        if (tag.equals("粉丝")) list = response.getData().getFans();
+                        else list = response.getData().getFollows();
+                        personRecyclerAdapter.replaceData(list);
+                    }
+                });
     }
 
 }

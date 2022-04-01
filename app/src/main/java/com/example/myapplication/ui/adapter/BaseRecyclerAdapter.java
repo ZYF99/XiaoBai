@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseRecyclerAdapter<Bean, Binding extends ViewDataBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int ITEM_TYPE_CONTENT = 1;
-    public List<Bean> baseList;
+    public List<Bean> baseList = new ArrayList<>();
     private OnCellClickListener<Binding, Bean> onCellClickListener;
 
     abstract int getLayoutRes();

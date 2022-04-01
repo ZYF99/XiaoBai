@@ -60,7 +60,7 @@
         <entry key="app/src/main/res/layout/fragment_inner_list.xml" value="0.1453125" />
         <entry key="app/src/main/res/layout/fragment_inner_message.xml" value="0.16145833333333334" />
         <entry key="app/src/main/res/layout/fragment_inner_person.xml" value="0.1638888888888889" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1638888888888889" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_message.xml" value="0.11" />
         <entry key="app/src/main/res/layout/fragment_mine.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />

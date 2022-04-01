@@ -2,23 +2,32 @@ package com.example.myapplication.ui.forum;
 
 import static com.example.myapplication.ui.addforum.AddForumActivity.RC_PHOTO_PREVIEW;
 import static com.example.myapplication.ui.forumdetail.ForumDetailActivity.KEY_FORUM_ID;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
+import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.adapter.ForumRecyclerAdapter;
 import com.example.myapplication.model.Forum;
 import com.example.myapplication.ui.forumdetail.ForumDetailActivity;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
 
@@ -57,14 +66,15 @@ public class InnerForumFragment extends Fragment implements BGASortableNinePhoto
     }
 
     private void initList() {
-        List<Forum> forumList = new ArrayList<>();
-        List<String> imgList = new ArrayList<>();
-        forumList.add(new Forum("", "", "", imgList));
-        forumList.add(new Forum("", "", "", imgList));
-        forumList.add(new Forum("", "", "", imgList));
-        forumList.add(new Forum("", "", "", imgList));
-        forumList.add(new Forum("", "", "", imgList));
-        forumRecyclerAdapter.replaceData(forumList);
+        boolean isFollow;
+        isFollow = tag.equals("关注");
+        /*ApiUtil.request(RetrofitHelper.getApiService().getForums(isFollow),
+                new ApiAction<ResultModel<List<Forum>>>() {
+                    @Override
+                    public void onSuccess(ResultModel<List<Forum>> response) {
+                        forumRecyclerAdapter.replaceData(response.getData());
+                    }
+                });*/
     }
 
     private void jumpToForumDetail(Context context, int forumId) {

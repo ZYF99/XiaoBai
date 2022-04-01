@@ -1,6 +1,8 @@
 package com.example.myapplication.manager;
 
+import com.example.myapplication.model.Forum;
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.account.FetchFansAndFocusResultModel;
 import com.example.myapplication.model.account.FetchUserInfoResultModel;
 import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.model.login.ResetPasswordRequestModel;
@@ -8,6 +10,8 @@ import com.example.myapplication.model.login.RegisterRequestModel;
 import com.example.myapplication.model.rongcloud.GetRongCloudTokenResultModel;
 import com.example.myapplication.util.HawkKey;
 import com.orhanobut.hawk.Hawk;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -41,12 +45,18 @@ public interface ApiService {
     @GET("myWeb/sys/sendVerificationCodeForReset")
     Call<ResultModel<ResponseBody>> sendEmailCodeForResetPassword(@Query("email") String email);
 
-
-
     @GET("myWeb/rongyun/getToken")
     Call<ResultModel<String>> getRongCloudToken(
-            @Query("email")String email,
-            @Query("id")Long id
+            @Query("email") String email,
+            @Query("id") Long id
     );
 
+    @GET("myWeb/userRelation/getLoginUserRelation")
+    Call<ResultModel<FetchFansAndFocusResultModel>> fetchFansAndFollows(@Query("realName") String realName);
+
+    //*********************************************论坛相关******************************************
+    @GET("myWeb/forum/getLoginUserForms")
+    Call<ResultModel<List<Forum>>> getForums(
+            @Query("isFollow") boolean isFollow
+    );
 }

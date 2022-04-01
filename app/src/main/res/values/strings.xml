@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">小白</string>
+    <string name="app_name">小白论坛</string>
     <string name="title_activity_main5">MainActivity5</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

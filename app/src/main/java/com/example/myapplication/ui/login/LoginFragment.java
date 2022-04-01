@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import androidx.navigation.Navigation;
@@ -14,6 +15,7 @@ import com.example.myapplication.model.account.FetchUserInfoResultModel;
 import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.ui.base.BaseFragment;
 import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.ui.modifypassword.ModifyPasswordActivity;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
 import com.example.myapplication.util.HawkKey;
@@ -42,6 +44,9 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
         binding.btnRegister.setOnClickListener(
                 view1 -> Navigation.findNavController(view).navigate(R.id.register_fragment)
         );
+
+        //忘记密码
+        binding.btnForgetPassword.setOnClickListener(view13 -> startActivity(new Intent(getContext(), ModifyPasswordActivity.class)));
     }
 
     //登陆
@@ -60,6 +65,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
                                 new ApiAction<ResultModel<FetchUserInfoResultModel>>() {
                                     @Override
                                     public void onSuccess(ResultModel<FetchUserInfoResultModel> userInfo) {
+                                        Hawk.put(HawkKey.KEY_NAME, userInfo.getData().getRealName());
                                         ApiUtil.request(RetrofitHelper.getApiService().getRongCloudToken(email, userInfo.getData().getId()),
                                                 new ApiAction<ResultModel<String>>() {
                                                     @Override

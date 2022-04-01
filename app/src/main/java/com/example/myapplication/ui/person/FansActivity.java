@@ -1,11 +1,16 @@
 package com.example.myapplication.ui.person;
 
 import androidx.fragment.app.Fragment;
+
 import android.view.View;
+
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityFansBinding;
 import com.example.myapplication.ui.adapter.TabFragmentAdapter;
 import com.example.myapplication.ui.base.BaseActivity;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +28,9 @@ public class FansActivity extends BaseActivity<ActivityFansBinding> {
 
     @Override
     public void initView(View view) {
+
+        binding.toolBar.setTitle(Hawk.get(HawkKey.KEY_NAME));
+
         //退出进入我的页面
         binding.toolBar.setNavigationOnClickListener(view2 -> finish());
 
