@@ -29,6 +29,7 @@ public class RetrofitHelper {
                     .connectTimeout(20, TimeUnit.SECONDS)
                     .readTimeout(20, TimeUnit.SECONDS)
                     .writeTimeout(20, TimeUnit.SECONDS)
+                    .addInterceptor(new HeaderInterceptor())
                     .addInterceptor(logging)
                     .build();
             retrofitBuilder = new Retrofit.Builder()

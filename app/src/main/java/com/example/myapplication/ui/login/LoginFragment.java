@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.login;
 
+import android.content.Context;
 import android.view.View;
 
 import androidx.navigation.Navigation;
@@ -9,6 +10,7 @@ import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentLoginBinding;
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.account.FetchUserInfoResultModel;
 import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.ui.base.BaseFragment;
 import com.example.myapplication.manager.RetrofitHelper;
@@ -34,9 +36,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
         binding.etPassword.setText(Hawk.get(HawkKey.KEY_PASSWORD, ""));
 
         //登录按钮
-        binding.btnLogin.setOnClickListener(view12 -> {
-            login();
-        });
+        binding.btnLogin.setOnClickListener(view12 -> login(getContext(), binding.etAccount.getText().toString(), binding.etPassword.getText().toString()));
 
         //去注册按钮
         binding.btnRegister.setOnClickListener(
@@ -44,39 +44,40 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
         );
     }
 
-    private void login() {
+    //登陆
+    public static void login(Context context, String email, String password) {
+
         ApiUtil.request(
                 RetrofitHelper.getApiService().login(
-                        binding.etAccount.getText().toString(),
-                        binding.etPassword.getText().toString()
+                        email,
+                        password
                 ),
                 new ApiAction<ResultModel<LoginResultModel>>() {
                     @Override
-                    public void onSuccess(ResultModel<LoginResultModel> response) {
-
-                        //connectToRongCloud(); todo 用这个 不要用下面这行
-                        loginToRongCloud("xxxxxx");
-                        MainActivity.jumpToMain(getContext());
-                        Hawk.put(HawkKey.KEY_EMAIL, binding.etAccount.getText().toString());
-                        Hawk.put(HawkKey.KEY_PASSWORD, binding.etPassword.getText().toString());
-                        Hawk.put(HawkKey.KEY_TOKEN, response.getData().getToken());
-                        Hawk.put(HawkKey.KEY_HAS_LOGIN, true);
+                    public void onSuccess(ResultModel<LoginResultModel> loginResult) {
+                        Hawk.put(HawkKey.KEY_TOKEN, loginResult.getData().getToken());
+                        ApiUtil.request(RetrofitHelper.getApiService().getUserInfo(),
+                                new ApiAction<ResultModel<FetchUserInfoResultModel>>() {
+                                    @Override
+                                    public void onSuccess(ResultModel<FetchUserInfoResultModel> userInfo) {
+                                        ApiUtil.request(RetrofitHelper.getApiService().getRongCloudToken(email, userInfo.getData().getId()),
+                                                new ApiAction<ResultModel<String>>() {
+                                                    @Override
+                                                    public void onSuccess(ResultModel<String> rongResult) {
+                                                        loginToRongCloud(rongResult.getData());
+                                                    }
+                                                });
+                                        MainActivity.jumpToMain(context);
+                                        Hawk.put(HawkKey.KEY_EMAIL, email);
+                                        Hawk.put(HawkKey.KEY_PASSWORD, password);
+                                        Hawk.put(HawkKey.KEY_HAS_LOGIN, true);
+                                    }
+                                });
                     }
                 });
     }
 
-    private void connectToRongCloud() {
-        ApiUtil.request(RetrofitHelper.getApiService().getRongCloudToken(), new ApiAction<ResultModel<String>>() {
-            @Override
-            public void onSuccess(ResultModel<String> response) {
-                loginToRongCloud(response.getData());
-            }
-        });
-    }
-
-    public static void loginToRongCloud(String token1) {
-        // 已为您替换开发者后台获取到的 userid 为 1 的用户 Token
-        String token = "SrfwuVVXoF+ueTp7XNYV6sXTcHflFFyM@zwch.cn.rongnav.com;zwch.cn.rongcfg.com";
+    public static void loginToRongCloud(String token) {
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
             @Override
             public void onSuccess(String userId) {

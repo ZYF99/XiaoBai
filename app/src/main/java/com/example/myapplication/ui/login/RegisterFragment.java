@@ -1,10 +1,11 @@
 package com.example.myapplication.ui.login;
 
+import static com.example.myapplication.ui.login.LoginFragment.login;
+
 import android.view.View;
 
 import androidx.navigation.Navigation;
 
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentRegisterBinding;
 import com.example.myapplication.manager.RetrofitHelper;
@@ -27,7 +28,7 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
     @Override
     public void initView(View view) {
         //注册并登录按钮
-        binding.btnNext.setOnClickListener(view12 -> register());
+        binding.btnNext.setOnClickListener(view12 -> registerAndLogin());
 
         //验证码按钮
         binding.tvSendEmail.setOnClickListener(view13 -> triggerSendEmailCode());
@@ -47,8 +48,8 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
                 });
     }
 
-    //注册
-    private void register() {
+    //注册并登陆
+    private void registerAndLogin() {
         ApiUtil.request(RetrofitHelper.getApiService()
                         .register(
                                 new RegisterRequestModel(
@@ -61,26 +62,10 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
                 new ApiAction<ResultModel<ResponseBody>>() {
                     @Override
                     public void onSuccess(ResultModel<ResponseBody> response) {
-
-                        /*ApiUtil.request(
-                                RetrofitHelper.getApiService().login(
-                                        binding.etEmail.getText().toString(),
-                                        binding.editPassword.getText().toString()
-                                ),
-                                new ApiAction<ResultModel<String>>() {
-                                    @Override
-                                    public void onSuccess(ResultModel<String> response) {
-                                        //connectToRongCloud(); todo 用这个 不要用下面这行
-                                        loginToRongCloud("xxxxxx");
-                                        MainActivity.jumpToMain(getContext());
-                                        Hawk.put(HawkKey.KEY_EMAIL, binding.etAccount.getText().toString());
-                                        Hawk.put(HawkKey.KEY_PASSWORD, binding.etPassword.getText().toString());
-                                        Hawk.put(HawkKey.KEY_HAS_LOGIN, true);
-                                    }
-                                });*/
-
+                        login(getContext(), binding.etEmail.getText().toString(), binding.editPassword.getText().toString());
                     }
                 });
     }
+
 
 }

@@ -1,9 +1,11 @@
 package com.example.myapplication.manager;
 
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.account.FetchUserInfoResultModel;
 import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.model.login.ResetPasswordRequestModel;
 import com.example.myapplication.model.login.RegisterRequestModel;
+import com.example.myapplication.model.rongcloud.GetRongCloudTokenResultModel;
 import com.example.myapplication.util.HawkKey;
 import com.orhanobut.hawk.Hawk;
 
@@ -24,6 +26,9 @@ public interface ApiService {
     @POST("myWeb/login")
     Call<ResultModel<LoginResultModel>> login(@Field("email") String email, @Field("password") String password);
 
+    @GET("myWeb/user/getLoginUserInfo")
+    Call<ResultModel<FetchUserInfoResultModel>> getUserInfo();
+
     @POST("myWeb/sys/registerUser")
     Call<ResultModel<ResponseBody>> register(@Body RegisterRequestModel registerRequestModel);
 
@@ -36,10 +41,12 @@ public interface ApiService {
     @GET("myWeb/sys/sendVerificationCodeForReset")
     Call<ResultModel<ResponseBody>> sendEmailCodeForResetPassword(@Query("email") String email);
 
-    @GET("myWeb/user/getLoginUserInfo")
-    Call<ResultModel<ResponseBody>> getUserInfo();
 
-    @GET("myWeb/user/getRongCloudToken")
-    Call<ResultModel<String>> getRongCloudToken();
+
+    @GET("myWeb/rongyun/getToken")
+    Call<ResultModel<String>> getRongCloudToken(
+            @Query("email")String email,
+            @Query("id")Long id
+    );
 
 }
