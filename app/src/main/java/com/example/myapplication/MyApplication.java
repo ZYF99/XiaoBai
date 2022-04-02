@@ -23,7 +23,7 @@ public class MyApplication extends Application {
 
     private void initRongCloud() {
         // 已为您替换为开发环境的 App Key
-        String appKey = "pvxdm17jpesvr";
+        String appKey = "cpj2xarlc2ymn";
         RongIM.init(MyApplication.instance, appKey);
     }
 

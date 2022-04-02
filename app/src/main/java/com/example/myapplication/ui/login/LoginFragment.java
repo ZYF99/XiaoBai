@@ -66,7 +66,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
                                     @Override
                                     public void onSuccess(ResultModel<FetchUserInfoResultModel> userInfo) {
                                         Hawk.put(HawkKey.KEY_NAME, userInfo.getData().getRealName());
-                                        ApiUtil.request(RetrofitHelper.getApiService().getRongCloudToken(email, userInfo.getData().getId()),
+                                        ApiUtil.request(RetrofitHelper.getApiService().getRongCloudToken(email, userInfo.getData().getId().toString()),
                                                 new ApiAction<ResultModel<String>>() {
                                                     @Override
                                                     public void onSuccess(ResultModel<String> rongResult) {

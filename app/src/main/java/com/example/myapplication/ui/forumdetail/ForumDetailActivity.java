@@ -7,10 +7,14 @@ import android.view.View;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityForumDetailBinding;
+import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.model.Forum;
+import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.base.BaseActivity;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
@@ -27,6 +31,17 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
     public void initView(View view) {
         //退出到设置页面
         binding.toolBar.setNavigationOnClickListener(view1 -> finish());
+        int id = getIntent().getIntExtra(KEY_FORUM_ID,0);
+        ApiUtil.request(
+                RetrofitHelper.getApiService().getForumDetail(id),
+                new ApiAction<ResultModel<Forum>>() {
+                    @Override
+                    public void onSuccess(ResultModel<Forum> response) {
+
+                    }
+                }
+        );
+
         ArrayList<String> imgList = new ArrayList<>();
         String a = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic24.nipic.com%2F20121029%2F6741879_162040605197_2.jpg&refer=http%3A%2F%2Fpic24.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651304271&t=992ec591f3d610c99ba2c0f1fea5d0bf";
         imgList.add(a);

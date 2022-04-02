@@ -4,7 +4,6 @@ import android.view.View;
 import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentMessageBinding;
-import com.example.myapplication.manager.RetrofitHelper;
 import com.example.myapplication.ui.adapter.TabFragmentAdapter;
 import com.example.myapplication.ui.base.BaseFragment;
 import java.util.ArrayList;
@@ -40,6 +39,9 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
 
 
     private void openIM() {
+
+        //开启会话
+        //RouteUtils.routeToConversationActivity(getContext(), Conversation.ConversationType.PRIVATE, "958377389283344384", null);
         //跳转到默认会话列表页。
         RouteUtils.routeToConversationListActivity(getContext(), "");
     }

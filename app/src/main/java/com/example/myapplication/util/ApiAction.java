@@ -7,7 +7,7 @@ import com.example.myapplication.MyApplication;
 public abstract class ApiAction<T> {
         public abstract void onSuccess(T response);
 
-        void onFailed(Throwable t) {
+        public void onFailed(Throwable t) {
             Toast.makeText(MyApplication.instance, t.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }

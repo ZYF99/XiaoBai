@@ -5,22 +5,16 @@ import static com.example.myapplication.ui.forumdetail.ForumDetailActivity.KEY_F
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.myapplication.R;
+import com.example.myapplication.databinding.FragmentInnerListBinding;
 import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.model.Forum;
 import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.adapter.ForumRecyclerAdapter;
-import com.example.myapplication.model.Forum;
+import com.example.myapplication.ui.base.BaseFragment;
 import com.example.myapplication.ui.forumdetail.ForumDetailActivity;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
@@ -30,51 +24,76 @@ import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import retrofit2.Call;
 
 //内嵌的论坛列表界面
-public class InnerForumFragment extends Fragment implements BGASortableNinePhotoLayout.Delegate {
+public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> implements BGASortableNinePhotoLayout.Delegate {
 
     String tag;
-    RecyclerView rvForum;
     ForumRecyclerAdapter forumRecyclerAdapter;
 
     public InnerForumFragment() {
 
     }
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_inner_list;
+    }
+
     public InnerForumFragment(String tag) {
         this.tag = tag;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_inner_list, null);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        rvForum = view.findViewById(R.id.rv_list);
+    public void initView(View view) {
         forumRecyclerAdapter = new ForumRecyclerAdapter(this);
-        rvForum.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvForum.setAdapter(forumRecyclerAdapter);
+        binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvList.setAdapter(forumRecyclerAdapter);
         forumRecyclerAdapter.setOnCellClickListener((itemForumBinding, forum) -> {
             jumpToForumDetail(getContext(), forum.getId());
         });
+        binding.refreshLayout.setOnRefreshListener(this::initList);
         initList();
     }
 
     private void initList() {
-        boolean isFollow;
-        isFollow = tag.equals("关注");
-        /*ApiUtil.request(RetrofitHelper.getApiService().getForums(isFollow),
+        binding.refreshLayout.setRefreshing(true);
+        Call<ResultModel<List<Forum>>> call;
+        switch (tag) {
+            case "关注":
+                call = RetrofitHelper.getApiService().getForums(true);
+                break;
+            case "发现":
+                call = RetrofitHelper.getApiService().getForums(false);
+                break;
+            case "笔记":
+                call = RetrofitHelper.getApiService().getForums(false);
+                break;
+            case "收藏":
+                call = RetrofitHelper.getApiService().getForums(false);
+                break;
+            case "赞过":
+                call = RetrofitHelper.getApiService().getForums(false);
+                break;
+            default:
+                call = RetrofitHelper.getApiService().getForums(false);
+                break;
+        }
+        ApiUtil.request(call,
                 new ApiAction<ResultModel<List<Forum>>>() {
                     @Override
                     public void onSuccess(ResultModel<List<Forum>> response) {
                         forumRecyclerAdapter.replaceData(response.getData());
+                        binding.refreshLayout.setRefreshing(false);
                     }
-                });*/
+
+                    @Override
+                    public void onFailed(Throwable t) {
+                        super.onFailed(t);
+                        binding.refreshLayout.setRefreshing(false);
+                    }
+                });
     }
 
     private void jumpToForumDetail(Context context, int forumId) {

@@ -7,20 +7,20 @@ import com.example.myapplication.model.account.FetchUserInfoResultModel;
 import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.model.login.ResetPasswordRequestModel;
 import com.example.myapplication.model.login.RegisterRequestModel;
-import com.example.myapplication.model.rongcloud.GetRongCloudTokenResultModel;
-import com.example.myapplication.util.HawkKey;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -32,6 +32,9 @@ public interface ApiService {
 
     @GET("myWeb/user/getLoginUserInfo")
     Call<ResultModel<FetchUserInfoResultModel>> getUserInfo();
+
+    @GET("myWeb/user/getUserInfoById")
+    Call<ResultModel<FetchUserInfoResultModel>> getUserInfoById();
 
     @POST("myWeb/sys/registerUser")
     Call<ResultModel<ResponseBody>> register(@Body RegisterRequestModel registerRequestModel);
@@ -48,7 +51,7 @@ public interface ApiService {
     @GET("myWeb/rongyun/getToken")
     Call<ResultModel<String>> getRongCloudToken(
             @Query("email") String email,
-            @Query("id") Long id
+            @Query("id") String id
     );
 
     @GET("myWeb/userRelation/getLoginUserRelation")
@@ -59,4 +62,14 @@ public interface ApiService {
     Call<ResultModel<List<Forum>>> getForums(
             @Query("isFollow") boolean isFollow
     );
+
+    @GET("myWeb/forum/getFormInfoById")
+    Call<ResultModel<Forum>> getForumDetail(
+            @Query("id") long id
+    );
+
+    //*********************************************工具相关******************************************
+    @POST("myWeb/file/upload")
+    Call<ResultModel<List<String>>> uploadFiles(@Body RequestBody Body);
+
 }

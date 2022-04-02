@@ -9,14 +9,25 @@ import androidx.annotation.NonNull;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityAddForumBinding;
+import com.example.myapplication.manager.RetrofitHelper;
+import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.base.BaseActivity;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -46,11 +57,37 @@ public class AddForumActivity extends BaseActivity<ActivityAddForumBinding> impl
                 Toast.makeText(AddForumActivity.this, "必须填写这一刻的想法或选择照片！", Toast.LENGTH_SHORT).show();
                 return;
             }
+            uploadFiles();
+
             /*Intent intent = new Intent();
             intent.putExtra(EXTRA_MOMENT, new Forum("", "", binding.etMomentAddContent.getText().toString().trim(), binding.snplMomentAddPhotos.getData()));
             setResult(RESULT_OK, intent);
             finish();*/
         });
+    }
+
+    private void uploadFiles() {
+        List<String> picList = binding.snplMomentAddPhotos.getData();
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        for (String s : picList) {
+            File file = new File(s);
+            builder.addFormDataPart(
+                    "files",
+                    file.getName(),
+                    RequestBody.create(MediaType.parse("image/*"), file)
+            );
+        }
+        ApiUtil.request(
+                RetrofitHelper.getApiService().uploadFiles(builder.build()),
+                new ApiAction<ResultModel<List<String>>>() {
+                    @Override
+                    public void onSuccess(ResultModel<List<String>> response) {
+
+                    }
+                }
+        );
     }
 
     @Override
