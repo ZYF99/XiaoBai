@@ -7,9 +7,7 @@ import com.example.myapplication.model.account.FetchUserInfoResultModel;
 import com.example.myapplication.model.login.LoginResultModel;
 import com.example.myapplication.model.login.ResetPasswordRequestModel;
 import com.example.myapplication.model.login.RegisterRequestModel;
-
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -18,9 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -54,14 +50,19 @@ public interface ApiService {
             @Query("id") String id
     );
 
+    //获取粉丝和关注的人
     @GET("myWeb/userRelation/getLoginUserRelation")
     Call<ResultModel<FetchFansAndFocusResultModel>> fetchFansAndFollows(@Query("realName") String realName);
 
+    //关注用户
+    @GET("myWeb/userRelation/addLoginUserRelation")
+    Call<ResultModel<ResponseBody>> focusUser(@Query("userId") Long userId);
+
     //*********************************************论坛相关******************************************
+
+    //获取论坛列表，isFollow为true时获取关注的人的论坛
     @GET("myWeb/forum/getLoginUserForms")
-    Call<ResultModel<List<Forum>>> getForums(
-            @Query("isFollow") boolean isFollow
-    );
+    Call<ResultModel<List<Forum>>> getForums(@Query("isFollow") boolean isFollow);
 
     @GET("myWeb/forum/getFormInfoById")
     Call<ResultModel<Forum>> getForumDetail(

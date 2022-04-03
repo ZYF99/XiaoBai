@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="forum"
+            type="com.example.myapplication.model.Forum" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +39,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/cell_author_portrait"
+                        android:id="@+id/iv_avatar"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="16dp"
@@ -53,9 +55,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@+id/cell_author_portrait"
-                        app:layout_constraintStart_toEndOf="@+id/cell_author_portrait"
-                        app:layout_constraintTop_toTopOf="@+id/cell_author_portrait">
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
+                        app:layout_constraintStart_toEndOf="@+id/iv_avatar"
+                        app:layout_constraintTop_toTopOf="@id/iv_avatar">
 
                         <TextView
                             android:id="@+id/tv_dynamic_name"
@@ -82,7 +84,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
                         android:lineSpacingExtra="4dp"
-                        android:text="在许多面向对象的命令式界面工具包中，您可以通过实例化微件树来初始化界面。您通常通过膨胀 XML 布局文件来实现此目的。每个微件都维护自己的内部状态，并且提供 getter 和 setter 方法，允许应用逻辑与微件进行交互。"
+                        android:text="@{forum.content}"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

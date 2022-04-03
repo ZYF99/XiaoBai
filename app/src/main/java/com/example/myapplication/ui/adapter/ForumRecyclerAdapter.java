@@ -1,18 +1,26 @@
 package com.example.myapplication.ui.adapter;
 
+import android.view.View;
+
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ItemForumBinding;
+import com.example.myapplication.manager.RetrofitHelper;
 import com.example.myapplication.model.Forum;
+import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.util.ApiAction;
+import com.example.myapplication.util.ApiUtil;
 
 import java.util.ArrayList;
 
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import okhttp3.ResponseBody;
 
 public class ForumRecyclerAdapter extends BaseRecyclerAdapter<Forum, ItemForumBinding> {
 
     BGASortableNinePhotoLayout.Delegate delegate;
 
-    public ForumRecyclerAdapter(BGASortableNinePhotoLayout.Delegate delegate){
+    public ForumRecyclerAdapter(BGASortableNinePhotoLayout.Delegate delegate) {
         this.delegate = delegate;
     }
 
@@ -23,20 +31,32 @@ public class ForumRecyclerAdapter extends BaseRecyclerAdapter<Forum, ItemForumBi
 
     @Override
     public void bindData(ItemForumBinding binding, int position) {
-        ArrayList<String> imgList = new ArrayList<>();
-        String a = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic24.nipic.com%2F20121029%2F6741879_162040605197_2.jpg&refer=http%3A%2F%2Fpic24.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651304271&t=992ec591f3d610c99ba2c0f1fea5d0bf";
-        imgList.add(a);
-        imgList.add(a);
-        imgList.add(a);
-        imgList.add(a);
-        imgList.add(a);
-        imgList.add(a);
-        imgList.add(a);
-        imgList.add(a);
-        imgList.add(a);
+        Forum forum = baseList.get(position);
+        binding.setForum(forum);
+        //头像
+        Glide.with(binding.ivAvatar.getContext()).load(forum.getAvatar()).into(binding.ivAvatar);
         //九宫格图片
-        binding.rvImg.setData(imgList);
+        binding.rvImg.setData((ArrayList<String>) forum.getImgList());
         binding.rvImg.setDelegate(delegate);
+
+        binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                focus(forum.getId());
+            }
+        });
+    }
+
+    private void focus(long userId) {
+        ApiUtil.request(
+                RetrofitHelper.getApiService().focusUser(userId),
+                new ApiAction<ResultModel<ResponseBody>>() {
+                    @Override
+                    public void onSuccess(ResultModel<ResponseBody> response) {
+
+                    }
+                }
+        );
     }
 
 }

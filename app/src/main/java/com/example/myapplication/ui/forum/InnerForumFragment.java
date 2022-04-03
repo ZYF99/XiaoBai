@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentInnerListBinding;
 import com.example.myapplication.manager.RetrofitHelper;
@@ -80,7 +81,8 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
                 call = RetrofitHelper.getApiService().getForums(false);
                 break;
         }
-        ApiUtil.request(call,
+        ApiUtil.request(
+                call,
                 new ApiAction<ResultModel<List<Forum>>>() {
                     @Override
                     public void onSuccess(ResultModel<List<Forum>> response) {
@@ -94,9 +96,49 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
                         binding.refreshLayout.setRefreshing(false);
                     }
                 });
+
+        List<String> imgList = new ArrayList<>();
+        String img = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2F1113%2F0F420110430%2F200F4110430-6-1200.jpg";
+        imgList.add(img);
+        imgList.add(img);
+        imgList.add(img);
+        imgList.add(img);
+        imgList.add(img);
+        imgList.add(img);
+        imgList.add(img);
+        imgList.add(img);
+        imgList.add(img);
+
+        List<Forum> list = new ArrayList<>();
+        Forum forum = new Forum(
+                959150623113084928l,
+                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp05%2F1Z9291TIBZ6-0-lp.jpg",
+                "大傻",
+                "成都今日天气阴转小雨，气温11－19℃ 醉貂蝉提醒您:[呲牙]气温不稳定，请注意防寒保暖，预防感冒!您的健康是我们最最关心的事情！本群为VIP福利群，各位食客如有需要订餐可艾特门店工作人员哦[666]\n",
+                imgList
+        );
+        Forum forum2 = new Forum(
+                959393354200645632l,
+                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp05%2F1Z9291TIBZ6-0-lp.jpg",
+                "大憨批",
+                "成都今日天气阴转小雨，气温11－19℃ 醉貂蝉提醒您:[呲牙]气温不稳定，请注意防寒保暖，预防感冒!您的健康是我们最最关心的事情！本群为VIP福利群，各位食客如有需要订餐可艾特门店工作人员哦[666]\n",
+                imgList
+        );
+        list.add(forum);
+        list.add(forum2);
+        list.add(forum);
+        list.add(forum2);
+        list.add(forum);
+        list.add(forum2);
+        list.add(forum);
+        list.add(forum2);
+        list.add(forum);
+        list.add(forum2);
+        forumRecyclerAdapter.replaceData(list);
+        binding.refreshLayout.setRefreshing(false);
     }
 
-    private void jumpToForumDetail(Context context, int forumId) {
+    private void jumpToForumDetail(Context context, long forumId) {
         Intent intent = new Intent(context, ForumDetailActivity.class);
         intent.putExtra(KEY_FORUM_ID, forumId);
         context.startActivity(intent);

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="person"
+            type="com.example.myapplication.model.Person" />
     </data>
 
     <LinearLayout
@@ -22,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="name"
+            android:text="@{person.realName}"
             android:textColor="@color/black"
             android:textSize="16dp"
             tools:text="name" />

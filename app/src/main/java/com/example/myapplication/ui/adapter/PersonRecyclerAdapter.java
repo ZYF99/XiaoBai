@@ -13,7 +13,8 @@ public class PersonRecyclerAdapter extends BaseRecyclerAdapter<Person, ItemPerso
 
     @Override
     public void bindData(ItemPersonBinding binding, int position) {
-
+        Person person = baseList.get(position);
+        binding.setPerson(person);
     }
 
 }

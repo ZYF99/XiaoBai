@@ -1,24 +1,25 @@
 package com.example.myapplication.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Forum implements Serializable {
-    int id;
+    long id;
     String avatar;
     String name;
     String content;
     List<String> imgList;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Forum(int id, String avatar, String name, String content, List<String> imgList) {
+    public Forum(long id, String avatar, String name, String content, List<String> imgList) {
         this.id = id;
         this.avatar = avatar;
         this.name = name;
