@@ -56,6 +56,8 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
         forumRecyclerAdapter = new ForumRecyclerAdapter(this);
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvList.setAdapter(forumRecyclerAdapter);
+        binding.refreshLayout.setOnRefreshListener(this::initList);
+
         forumRecyclerAdapter.setOnCellClickListener((itemForumBinding, forum) -> {
             jumpToForumDetail(getContext(), forum.getId());
         });
@@ -75,7 +77,23 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
                 RouteUtils.routeToConversationActivity(getContext(), Conversation.ConversationType.PRIVATE, String.valueOf(person.getId()), null);
             }
         });
-        binding.refreshLayout.setOnRefreshListener(this::initList);
+        forumRecyclerAdapter.setOnBottomFunctionClickListener(new ForumRecyclerAdapter.OnBottomFunctionClickListener() {
+            @Override
+            public void onLikeClick(Forum forum) {
+
+            }
+
+            @Override
+            public void onCollectionClick(Forum forum) {
+
+            }
+
+            @Override
+            public void onCommentClick(Forum forum) {
+                jumpToForumDetail(getContext(), forum.getId());
+            }
+        });
+
         initList();
     }
 
@@ -136,14 +154,16 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp05%2F1Z9291TIBZ6-0-lp.jpg",
                 "大傻",
                 "成都今日天气阴转小雨，气温11－19℃ 醉貂蝉提醒您:[呲牙]气温不稳定，请注意防寒保暖，预防感冒!您的健康是我们最最关心的事情！本群为VIP福利群，各位食客如有需要订餐可艾特门店工作人员哦[666]\n",
-                imgList
+                imgList,
+                1648987365192l
         );
         Forum forum2 = new Forum(
                 959393354200645632l,
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp05%2F1Z9291TIBZ6-0-lp.jpg",
                 "大憨批",
                 "成都今日天气阴转小雨，气温11－19℃ 醉貂蝉提醒您:[呲牙]气温不稳定，请注意防寒保暖，预防感冒!您的健康是我们最最关心的事情！本群为VIP福利群，各位食客如有需要订餐可艾特门店工作人员哦[666]\n",
-                imgList
+                imgList,
+                1648987365192l
         );
         list.add(forum);
         list.add(forum2);

@@ -3,17 +3,15 @@ package com.example.myapplication.ui.personinfo;
 import android.view.View;
 
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.ActivityModifyPasswordBinding;
-import com.example.myapplication.databinding.ActivityPersonInfoBinding;
-import com.example.myapplication.databinding.ActivitySecretBinding;
+import com.example.myapplication.databinding.ActivityEditInfoBinding;
 import com.example.myapplication.ui.base.BaseActivity;
 
 //设置——个人资料界面
-public class PersonInfoActivity extends BaseActivity<ActivityPersonInfoBinding> {
+public class PersonInfoActivity extends BaseActivity<ActivityEditInfoBinding> {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_person_info;
+        return R.layout.activity_edit_info;
     }
 
     @Override

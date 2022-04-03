@@ -10,6 +10,7 @@ public class Forum implements Serializable {
     String name;
     String content;
     List<String> imgList;
+    long time;
 
     public long getId() {
         return id;
@@ -18,23 +19,6 @@ public class Forum implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public Forum(long id, String avatar, String name, String content, List<String> imgList) {
-        this.id = id;
-        this.avatar = avatar;
-        this.name = name;
-        this.content = content;
-        this.imgList = imgList;
-    }
-
-    public Forum(String avatar, String name, String content, List<String> imgList) {
-        this.id = 26347;
-        this.avatar = avatar;
-        this.name = name;
-        this.content = content;
-        this.imgList = imgList;
-    }
-
 
     public String getAvatar() {
         return avatar;
@@ -66,5 +50,22 @@ public class Forum implements Serializable {
 
     public void setImgList(List<String> imgList) {
         this.imgList = imgList;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public Forum(long id, String avatar, String name, String content, List<String> imgList, long time) {
+        this.id = id;
+        this.avatar = avatar;
+        this.name = name;
+        this.content = content;
+        this.imgList = imgList;
+        this.time = time;
     }
 }
