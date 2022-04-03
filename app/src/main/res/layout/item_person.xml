@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="person"
             type="com.example.myapplication.model.Person" />
@@ -14,20 +15,35 @@
         android:orientation="horizontal"
         android:padding="12dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_avatar"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:src="@drawable/icon_mine" />
+            tools:src="@drawable/icon_mine" />
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_weight="1"
             android:text="@{person.realName}"
             android:textColor="@color/black"
             android:textSize="16dp"
             tools:text="name" />
+
+        <Button
+            android:id="@+id/btn_unfollow"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_corner_btn_nor"
+            android:backgroundTint="@color/colorAccent"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="取消关注"
+            android:textColor="@color/white"
+            android:textSize="10dp" />
 
     </LinearLayout>
 </layout>

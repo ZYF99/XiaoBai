@@ -1,13 +1,17 @@
 package com.example.myapplication.ui.message;
 
 import android.view.View;
+
 import androidx.fragment.app.Fragment;
+
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentMessageBinding;
 import com.example.myapplication.ui.adapter.TabFragmentAdapter;
 import com.example.myapplication.ui.base.BaseFragment;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.rong.imkit.utils.RouteUtils;
 
 public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
@@ -31,7 +35,7 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
         titles.add("赞和收藏");
         titles.add("新增关注");
         titles.add("评论");
-        vpAdapter = new TabFragmentAdapter(getChildFragmentManager(), messageFragments,titles);
+        vpAdapter = new TabFragmentAdapter(getChildFragmentManager(), messageFragments, titles);
         binding.vpMessage.setAdapter(vpAdapter);
         binding.tlMessage.setupWithViewPager(binding.vpMessage);
         binding.ivMessage.setOnClickListener(view1 -> openIM());
@@ -39,9 +43,6 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
 
 
     private void openIM() {
-
-        //开启会话
-        //RouteUtils.routeToConversationActivity(getContext(), Conversation.ConversationType.PRIVATE, "958377389283344384", null);
         //跳转到默认会话列表页。
         RouteUtils.routeToConversationListActivity(getContext(), "");
     }

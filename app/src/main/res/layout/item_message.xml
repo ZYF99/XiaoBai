@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="message"
+            type="com.example.myapplication.model.Message" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/white"
         app:cardElevation="2dp">
 
@@ -25,43 +27,43 @@
             tools:ignore="RtlSymmetry">
 
 
-            <ImageView
-                android:id="@+id/cell_msg_icon"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_msg_type"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/icon_account"
+                android:src="@drawable/icon_message"
                 android:tint="@color/colorGray"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/chat_left_msg" />
-
+                app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
             <TextView
-                android:id="@+id/chat_left_msg"
+                android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="aaaaaaaa"
+                android:text="@{message.type}"
+                tools:text="系统消息"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/tv_time"
-                app:layout_constraintStart_toEndOf="@+id/cell_msg_icon"
+                app:layout_constraintStart_toEndOf="@+id/iv_msg_type"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/cell_person_btn"
+                android:id="@+id/tv_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="214234234"
+                android:text="@{message.content}"
+                tools:text="sadgshdfhsdjvjwfihv"
                 android:textColor="#AAAAAA"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/chat_left_msg"
-                app:layout_constraintStart_toStartOf="@+id/chat_left_msg"
-                app:layout_constraintTop_toBottomOf="@+id/chat_left_msg" />
+                app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
             <TextView
                 android:id="@+id/tv_time"

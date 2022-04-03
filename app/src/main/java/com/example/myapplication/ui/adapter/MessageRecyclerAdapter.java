@@ -13,7 +13,8 @@ public class MessageRecyclerAdapter extends BaseRecyclerAdapter<Message, ItemMes
 
     @Override
     public void bindData(ItemMessageBinding binding, int position) {
-
+        Message message = baseList.get(position);
+        binding.setMessage(message);
     }
 
 }

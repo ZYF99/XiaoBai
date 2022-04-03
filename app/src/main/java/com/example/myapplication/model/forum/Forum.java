@@ -1,4 +1,4 @@
-package com.example.myapplication.model;
+package com.example.myapplication.model.forum;
 
 import java.io.Serializable;
 import java.util.ArrayList;

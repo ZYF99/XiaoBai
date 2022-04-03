@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="12dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-        <ImageView
+        <variable
+            name="comment"
+            type="com.example.myapplication.model.forum.Comment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_avatar"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/icon_message" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +32,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
+                android:text="@{comment.person.realName}"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 tools:text="name" />
@@ -34,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="content"
+                android:text="@{comment.content}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="content" />
@@ -52,10 +61,12 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="2020-3-9"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+
+</layout>

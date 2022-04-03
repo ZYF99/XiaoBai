@@ -53,6 +53,9 @@ dependencies {
 
     api 'com.github.bumptech.glide:glide:4.9.0' //glide图形加载框架
 
+    //CircleImageView
+    api 'de.hdodenhof:circleimageview:3.1.0'
+
     //图片九宫格
     implementation 'com.github.bingoogolapple:BGAPhotoPicker-Android:2.0.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

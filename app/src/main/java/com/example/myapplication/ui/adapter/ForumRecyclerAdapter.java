@@ -1,24 +1,19 @@
 package com.example.myapplication.ui.adapter;
 
-import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ItemForumBinding;
-import com.example.myapplication.manager.RetrofitHelper;
-import com.example.myapplication.model.Forum;
-import com.example.myapplication.model.ResultModel;
-import com.example.myapplication.util.ApiAction;
-import com.example.myapplication.util.ApiUtil;
-
+import com.example.myapplication.model.forum.Forum;
+import com.example.myapplication.model.Person;
+import com.example.myapplication.ui.DialogUtil;
 import java.util.ArrayList;
-
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
-import okhttp3.ResponseBody;
 
 public class ForumRecyclerAdapter extends BaseRecyclerAdapter<Forum, ItemForumBinding> {
 
     BGASortableNinePhotoLayout.Delegate delegate;
+    DialogUtil.OnPersonInfoItemClickListener onPersonInfoItemClickListener;
 
     public ForumRecyclerAdapter(BGASortableNinePhotoLayout.Delegate delegate) {
         this.delegate = delegate;
@@ -39,24 +34,14 @@ public class ForumRecyclerAdapter extends BaseRecyclerAdapter<Forum, ItemForumBi
         binding.rvImg.setData((ArrayList<String>) forum.getImgList());
         binding.rvImg.setDelegate(delegate);
 
-        binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                focus(forum.getId());
-            }
-        });
+        binding.ivAvatar.setOnClickListener(view -> DialogUtil.showPersonInfoDialog(
+                binding.ivAvatar.getContext(),
+                new Person("2131423@qq.com", 959393354200645632l, forum.getAvatar(), "XXX"),
+                onPersonInfoItemClickListener
+        ));
     }
 
-    private void focus(long userId) {
-        ApiUtil.request(
-                RetrofitHelper.getApiService().focusUser(userId),
-                new ApiAction<ResultModel<ResponseBody>>() {
-                    @Override
-                    public void onSuccess(ResultModel<ResponseBody> response) {
-
-                    }
-                }
-        );
+    public void setOnPersonInfoItemClickListener(DialogUtil.OnPersonInfoItemClickListener onPersonInfoItemClickListener) {
+        this.onPersonInfoItemClickListener = onPersonInfoItemClickListener;
     }
-
 }

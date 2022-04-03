@@ -6,7 +6,7 @@
     <data>
         <variable
             name="forum"
-            type="com.example.myapplication.model.Forum" />
+            type="com.example.myapplication.model.forum.Forum" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_avatar"
                         android:layout_width="30dp"
                         android:layout_height="30dp"

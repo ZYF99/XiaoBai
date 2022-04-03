@@ -27,13 +27,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/icon_mine" />
+                    android:src="@drawable/icon_message" />
 
                 <TextView
                     android:id="@+id/tv_user_name"

@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentInnerListBinding;
 import com.example.myapplication.manager.RetrofitHelper;
-import com.example.myapplication.model.Forum;
+import com.example.myapplication.model.forum.Forum;
+import com.example.myapplication.model.Person;
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.ui.DialogUtil;
 import com.example.myapplication.ui.adapter.ForumRecyclerAdapter;
 import com.example.myapplication.ui.base.BaseFragment;
 import com.example.myapplication.ui.forumdetail.ForumDetailActivity;
@@ -25,6 +27,9 @@ import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import io.rong.imkit.utils.RouteUtils;
+import io.rong.imlib.model.Conversation;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 //内嵌的论坛列表界面
@@ -53,6 +58,22 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
         binding.rvList.setAdapter(forumRecyclerAdapter);
         forumRecyclerAdapter.setOnCellClickListener((itemForumBinding, forum) -> {
             jumpToForumDetail(getContext(), forum.getId());
+        });
+        forumRecyclerAdapter.setOnPersonInfoItemClickListener(new DialogUtil.OnPersonInfoItemClickListener() {
+            @Override
+            public void onFollowClick(Person person) {
+                followPerson(person);
+            }
+
+            @Override
+            public void onUnFollowClick(Person person) {
+                unFollowPerson(person);
+            }
+
+            @Override
+            public void onSendMessageClick(Person person) {
+                RouteUtils.routeToConversationActivity(getContext(), Conversation.ConversationType.PRIVATE, String.valueOf(person.getId()), null);
+            }
         });
         binding.refreshLayout.setOnRefreshListener(this::initList);
         initList();
@@ -136,6 +157,26 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
         list.add(forum2);
         forumRecyclerAdapter.replaceData(list);
         binding.refreshLayout.setRefreshing(false);
+    }
+
+    private void followPerson(Person person) {
+        ApiUtil.request(RetrofitHelper.getApiService().followUser(person.getId()),
+                new ApiAction<ResultModel<ResponseBody>>() {
+                    @Override
+                    public void onSuccess(ResultModel<ResponseBody> response) {
+
+                    }
+                });
+    }
+
+    private void unFollowPerson(Person person) {
+        ApiUtil.request(RetrofitHelper.getApiService().unFollowUser(person.getId()),
+                new ApiAction<ResultModel<ResponseBody>>() {
+                    @Override
+                    public void onSuccess(ResultModel<ResponseBody> response) {
+                        initList();
+                    }
+                });
     }
 
     private void jumpToForumDetail(Context context, long forumId) {

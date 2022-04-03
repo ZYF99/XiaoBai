@@ -1,20 +1,12 @@
 package com.example.myapplication.model;
 
 public class Message {
-    String avatar;
     String content;
+    String type;
 
-    public Message(String avatar, String content) {
-        this.avatar = avatar;
+    public Message(String content, String type) {
         this.content = content;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        this.type = type;
     }
 
     public String getContent() {
@@ -23,5 +15,13 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
