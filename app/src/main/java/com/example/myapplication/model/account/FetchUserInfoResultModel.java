@@ -4,11 +4,13 @@ public class FetchUserInfoResultModel {
     String email;
     Long id;
     String realName;
+    String photoPath;
 
-    public FetchUserInfoResultModel(String email, Long id, String realName) {
+    public FetchUserInfoResultModel(String email, Long id, String realName, String photoPath) {
         this.email = email;
         this.id = id;
         this.realName = realName;
+        this.photoPath = photoPath;
     }
 
     public String getEmail() {
@@ -33,5 +35,13 @@ public class FetchUserInfoResultModel {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

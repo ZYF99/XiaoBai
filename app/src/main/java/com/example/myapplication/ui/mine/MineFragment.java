@@ -16,6 +16,9 @@ import com.example.myapplication.ui.adapter.TabFragmentAdapter;
 import com.example.myapplication.ui.forum.InnerForumFragment;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
+
 import java.util.ArrayList;
 import java.util.List;
 

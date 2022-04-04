@@ -33,7 +33,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class AddForumActivity extends BaseActivity<ActivityAddForumBinding> implements EasyPermissions.PermissionCallbacks, BGASortableNinePhotoLayout.Delegate {
 
-    private static final int PRC_PHOTO_PICKER = 1;
+    public static final int PRC_PHOTO_PICKER = 1;
 
     private static final int RC_CHOOSE_PHOTO = 1;
     public static final int RC_PHOTO_PREVIEW = 2;
