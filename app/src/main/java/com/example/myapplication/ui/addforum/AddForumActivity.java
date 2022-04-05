@@ -6,20 +6,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityAddForumBinding;
 import com.example.myapplication.manager.RetrofitHelper;
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.forum.AddForumRequestModel;
 import com.example.myapplication.ui.base.BaseActivity;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
@@ -49,23 +49,27 @@ public class AddForumActivity extends BaseActivity<ActivityAddForumBinding> impl
         binding.snplMomentAddPhotos.setDelegate(this);
         binding.snplMomentAddPhotos.setSortable(true);
         binding.snplMomentAddPhotos.setPlusEnable(true);
+
         //退出进入我的页面
         binding.toolBar.setNavigationOnClickListener(view1 -> finish());
+
+        //发布
         binding.tvMomentAddPublish.setOnClickListener(view1 -> {
             String content = binding.etMomentAddContent.getText().toString().trim();
             if (content.length() == 0 && binding.snplMomentAddPhotos.getItemCount() == 0) {
                 Toast.makeText(AddForumActivity.this, "必须填写这一刻的想法或选择照片！", Toast.LENGTH_SHORT).show();
                 return;
             }
-            uploadFiles();
 
-            /*Intent intent = new Intent();
-            intent.putExtra(EXTRA_MOMENT, new Forum("", "", binding.etMomentAddContent.getText().toString().trim(), binding.snplMomentAddPhotos.getData()));
-            setResult(RESULT_OK, intent);
-            finish();*/
+            if (binding.snplMomentAddPhotos.getItemCount() == 0) {
+                release(binding.etMomentAddContent.getText().toString().trim(), null);
+            } else {
+                uploadFiles();
+            }
         });
     }
 
+    //上传图片
     private void uploadFiles() {
         List<String> picList = binding.snplMomentAddPhotos.getData();
 
@@ -84,7 +88,25 @@ public class AddForumActivity extends BaseActivity<ActivityAddForumBinding> impl
                 new ApiAction<ResultModel<List<String>>>() {
                     @Override
                     public void onSuccess(ResultModel<List<String>> response) {
+                        release(binding.etMomentAddContent.getText().toString().trim(), response.getData());
+                    }
+                }
+        );
+    }
 
+    //发布论坛
+    private void release(String content, @Nullable List<String> files) {
+        String listJson;
+        if (files == null) listJson = "";
+        else listJson = files.toString();
+        ApiUtil.request(
+                RetrofitHelper.getApiService().releaseForum(
+                        new AddForumRequestModel(content, listJson)
+                ),
+                new ApiAction<ResultModel<ResponseBody>>() {
+                    @Override
+                    public void onSuccess(ResultModel<ResponseBody> response) {
+                        Toast.makeText(AddForumActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                     }
                 }
         );

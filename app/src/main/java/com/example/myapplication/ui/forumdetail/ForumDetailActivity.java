@@ -49,7 +49,7 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
         commentRecyclerAdapter.setOnPersonInfoItemClickListener(new DialogUtil.OnPersonInfoItemClickListener() {
             @Override
             public void onFollowClick(Person person) {
-                followPerson(person);
+                followOrCancelPerson(person);
             }
 
             @Override
@@ -93,8 +93,8 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
         commentRecyclerAdapter.replaceData(comments);
     }
 
-    private void followPerson(Person person) {
-        ApiUtil.request(RetrofitHelper.getApiService().followUser(person.getId()),
+    private void followOrCancelPerson(Person person) {
+        ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
                 new ApiAction<ResultModel<ResponseBody>>() {
                     @Override
                     public void onSuccess(ResultModel<ResponseBody> response) {
@@ -104,7 +104,7 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
     }
 
     private void unFollowPerson(Person person) {
-        ApiUtil.request(RetrofitHelper.getApiService().unFollowUser(person.getId()),
+        ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
                 new ApiAction<ResultModel<ResponseBody>>() {
                     @Override
                     public void onSuccess(ResultModel<ResponseBody> response) {

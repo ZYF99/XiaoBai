@@ -1,5 +1,7 @@
 package com.example.myapplication.manager;
 
+import com.example.myapplication.model.account.EditUserInfoRequestModel;
+import com.example.myapplication.model.forum.AddForumRequestModel;
 import com.example.myapplication.model.forum.Forum;
 import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.model.account.FetchFansAndFocusResultModel;
@@ -61,23 +63,27 @@ public interface ApiService {
     @GET("myWeb/userRelation/getLoginUserRelation")
     Call<ResultModel<FetchFansAndFocusResultModel>> fetchFansAndFollows(@Query("realName") String realName);
 
-    //关注用户
+    //关注或取消关注用户
     @GET("myWeb/userRelation/addLoginUserRelation")
-    Call<ResultModel<ResponseBody>> followUser(@Query("userId") Long userId);
+    Call<ResultModel<ResponseBody>> followOrCancelUser(@Query("userId") Long userId);
 
-    //取消关注用户
-    @GET("myWeb/userRelation/removeLoginUserRelation")
-    Call<ResultModel<ResponseBody>> unFollowUser(@Query("userId") Long userId);
+    //修改用户信息
+    @POST("myWeb/user/updateUserInfo")
+    Call<ResultModel<ResponseBody>> updateUserInfo(@Body EditUserInfoRequestModel editUserInfoRequestModel);
 
     //*********************************************论坛相关******************************************
 
-    //获取论坛列表，isFollow为true时获取关注的人的论坛
-    @GET("myWeb/forum/getLoginUserForms")
-    Call<ResultModel<List<Forum>>> getForums(@Query("isFollow") boolean isFollow);
+    //获取论坛列表
+    @GET("myWeb/forum/getLoginUserForums")
+    Call<ResultModel<List<Forum>>> getForums(@Query("type") String type);
 
     //获取论坛内容详情
     @GET("myWeb/forum/getFormInfoById")
     Call<ResultModel<Forum>> getForumDetail(@Query("id") long id);
+
+    //发布论坛
+    @POST("myWeb/forum/addLoginUserForums")
+    Call<ResultModel<ResponseBody>> releaseForum(@Body AddForumRequestModel addForumRequestModel);
 
     //*********************************************工具相关******************************************
 

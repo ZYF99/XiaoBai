@@ -44,6 +44,7 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
     @Override
     public void initView(View view) {
         personRecyclerAdapter = new PersonRecyclerAdapter(isFollowOther);
+        binding.refreshLayout.setOnRefreshListener(this::initList);
         personRecyclerAdapter.setOnInnerItemClickListener(new PersonRecyclerAdapter.OnInnerItemClickListener() {
             @Override
             public void onAvatarClick(Person person) {
@@ -51,13 +52,13 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
                     @Override
                     public void onFollowClick(Person person) {
                         //关注
-
+                        followOrCancelUSer(person);
                     }
 
                     @Override
                     public void onUnFollowClick(Person person) {
                         //取消关注
-                        unFollowPerson(person);
+                        followOrCancelUSer(person);
                     }
 
                     @Override
@@ -70,7 +71,7 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
 
             @Override
             public void onUnFollowClick(Person person) {
-                unFollowPerson(person);
+                followOrCancelUSer(person);
             }
         });
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -99,8 +100,8 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
                 });
     }
 
-    private void unFollowPerson(Person person) {
-        ApiUtil.request(RetrofitHelper.getApiService().unFollowUser(person.getId()),
+    private void followOrCancelUSer(Person person) {
+        ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
                 new ApiAction<ResultModel<ResponseBody>>() {
                     @Override
                     public void onSuccess(ResultModel<ResponseBody> response) {

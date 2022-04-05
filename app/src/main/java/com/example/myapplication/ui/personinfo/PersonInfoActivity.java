@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityEditInfoBinding;
 import com.example.myapplication.manager.RetrofitHelper;
 import com.example.myapplication.model.ResultModel;
+import com.example.myapplication.model.account.EditUserInfoRequestModel;
 import com.example.myapplication.model.account.FetchUserInfoResultModel;
 import com.example.myapplication.ui.DialogUtil;
 import com.example.myapplication.ui.addforum.AddForumActivity;
@@ -18,8 +20,13 @@ import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
 
 import java.io.File;
+import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -42,9 +49,7 @@ public class PersonInfoActivity extends BaseActivity<ActivityEditInfoBinding> {
         binding.llAvatar.setOnClickListener(view12 -> choicePhotoWrapper());
 
         //修改昵称
-        binding.llName.setOnClickListener(view13 -> DialogUtil.showEditNameDialog(PersonInfoActivity.this, userInfoResultModel.getRealName(), newName -> {
-
-        }));
+        binding.llName.setOnClickListener(view13 -> DialogUtil.showEditNameDialog(PersonInfoActivity.this, userInfoResultModel.getRealName(), newName -> editName(newName)));
 
         fetchUserInfo();
     }
@@ -93,13 +98,48 @@ public class PersonInfoActivity extends BaseActivity<ActivityEditInfoBinding> {
     }
 
     //上传头像并修改
-    private void uploadAndEditAvatar(String filePath){
-
+    private void uploadAndEditAvatar(String filePath) {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        builder.addFormDataPart(
+                "files",
+                filePath,
+                RequestBody.create(MediaType.parse("image/*"), new File(filePath))
+        );
+        ApiUtil.request(
+                RetrofitHelper.getApiService().uploadFiles(builder.build()),
+                new ApiAction<ResultModel<List<String>>>() {
+                    @Override
+                    public void onSuccess(ResultModel<List<String>> response) {
+                        EditUserInfoRequestModel editUserInfoRequestModel = new EditUserInfoRequestModel();
+                        editUserInfoRequestModel.setPhotoPath(response.getData().get(0));
+                        editUserInfoRequestModel.setId(userInfoResultModel.getId());
+                        ApiUtil.request(
+                                RetrofitHelper.getApiService().updateUserInfo(editUserInfoRequestModel),
+                                new ApiAction<ResultModel<ResponseBody>>() {
+                                    @Override
+                                    public void onSuccess(ResultModel<ResponseBody> response) {
+                                        Toast.makeText(PersonInfoActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                }
+        );
     }
 
     //修改名称
-    private void editName(String newName){
-
+    private void editName(String newName) {
+        EditUserInfoRequestModel editUserInfoRequestModel = new EditUserInfoRequestModel();
+        editUserInfoRequestModel.setRealName(newName);
+        editUserInfoRequestModel.setId(userInfoResultModel.getId());
+        ApiUtil.request(
+                RetrofitHelper.getApiService().updateUserInfo(editUserInfoRequestModel),
+                new ApiAction<ResultModel<ResponseBody>>() {
+                    @Override
+                    public void onSuccess(ResultModel<ResponseBody> response) {
+                        Toast.makeText(PersonInfoActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 }
