@@ -5,8 +5,9 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.ItemForumBinding;
 import com.example.myapplication.model.forum.Forum;
 import com.example.myapplication.model.Person;
-import com.example.myapplication.ui.DateUtil;
 import com.example.myapplication.ui.DialogUtil;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 
@@ -41,29 +42,39 @@ public class ForumRecyclerAdapter extends BaseRecyclerAdapter<Forum, ItemForumBi
         binding.setForum(forum);
 
         //头像
-        Glide.with(binding.ivAvatar.getContext()).load(forum.getAvatar()).into(binding.ivAvatar);
+        Glide.with(binding.ivAvatar.getContext()).load(forum.getPhotoPath()).into(binding.ivAvatar);
 
         //时间
-        binding.tvTime.setText(DateUtil.formatDate(forum.getTime()));
+        binding.tvTime.setText(forum.getCreateTime().split("T")[0]);
 
         //九宫格图片
-        binding.rvImg.setData((ArrayList<String>) forum.getImgList());
+        binding.rvImg.setData((ArrayList<String>) forum.getImageList());
         binding.rvImg.setDelegate(delegate);
 
-        binding.ivAvatar.setOnClickListener(view -> DialogUtil.showPersonInfoDialog(
-                binding.ivAvatar.getContext(),
-                new Person("2131423@qq.com", 959393354200645632l, forum.getAvatar(), "XXX"),
-                onPersonInfoItemClickListener
-        ));
+        //头像
+        binding.ivAvatar.setOnClickListener(view -> {
+            if (!forum.getCreatName().equals(Hawk.get(HawkKey.KEY_EMAIL))) {
+                DialogUtil.showPersonInfoDialog(
+                        binding.ivAvatar.getContext(),
+                        new Person(forum.getCreatName(), forum.getUserId(), forum.getPhotoPath(), forum.getRealName()),
+                        forum.isFollow(),
+                        onPersonInfoItemClickListener
+                );
+            }
+        });
 
         //点赞
-        binding.btnLike.setOnClickListener(view -> onBottomFunctionClickListener.onLikeClick(forum));
+        String likePrefString = forum.isPraise() ? "已赞" : "赞";
+        binding.tvLike.setText(likePrefString + " " + forum.getPraiseNum());
+        binding.tvLike.setOnClickListener(view -> onBottomFunctionClickListener.onLikeClick(forum));
 
         //收藏
-        binding.btnCollection.setOnClickListener(view -> onBottomFunctionClickListener.onCollectionClick(forum));
+        String collectionPrefString = forum.isCollect() ? "已收藏" : "收藏";
+        binding.tvCollection.setText(collectionPrefString + " " + forum.getCollectNum());
+        binding.tvCollection.setOnClickListener(view -> onBottomFunctionClickListener.onCollectionClick(forum));
 
         //评论
-        binding.btnCommit.setOnClickListener(view -> onBottomFunctionClickListener.onCommentClick(forum));
+        binding.tvComment.setOnClickListener(view -> onBottomFunctionClickListener.onCommentClick(forum));
     }
 
     public void setOnPersonInfoItemClickListener(DialogUtil.OnPersonInfoItemClickListener onPersonInfoItemClickListener) {

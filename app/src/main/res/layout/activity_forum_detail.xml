@@ -28,10 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-                app:title="秋风" />
+                tools:title="秋风" />
 
         </com.google.android.material.appbar.AppBarLayout>
-
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedscroll"
@@ -40,7 +39,6 @@
             android:background="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@id/lin_bottom"
             app:layout_constraintTop_toBottomOf="@id/appbar">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,19 +49,21 @@
                 android:paddingRight="16dp">
 
                 <TextView
+                    android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="#00FFFFFF"
                     android:gravity="start"
-                    android:text="在许多面向对象的命令式界面工具包中，您可以通过实例化微件树来初始化界面。您通常通过膨胀 XML 布局文件来实现此目的。每个微件都维护自己的内部状态，并且提供 getter 和 setter 方法，允许应用逻辑与微件进行交互。"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="在许多面向对象的命令式界面工具包中，您可以通过实例化微件树来初始化界面。您通常通过膨胀 XML 布局文件来实现此目的。每个微件都维护自己的内部状态，并且提供 getter 和 setter 方法，允许应用逻辑与微件进行交互。" />
 
                 <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
                     android:id="@+id/snpl_moment_add_photos"
-                    style="@style/MatchAuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     android:paddingTop="8dp"
@@ -104,7 +104,7 @@
                     android:background="@color/colorGray" />
 
                 <TextView
-                    android:id="@+id/tv_comment"
+                    android:id="@+id/tv_comment_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -158,7 +158,7 @@
 
 
                     <TextView
-                        android:id="@+id/btn_like"
+                        android:id="@+id/tv_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -181,7 +181,7 @@
                         android:background="#7CE2E2E2" />
 
                     <TextView
-                        android:id="@+id/btn_comment"
+                        android:id="@+id/tv_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -204,7 +204,7 @@
                         android:background="#7CE2E2E2" />
 
                     <TextView
-                        android:id="@+id/btn_trans"
+                        android:id="@+id/tv_collection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -228,6 +228,57 @@
                 android:visibility="gone" />
         </FrameLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/edit_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:hint="输入评论"
+                android:background="@drawable/bg_corner_rect"
+                android:backgroundTint="#0C000000"
+                android:inputType="textMultiLine"
+                android:paddingLeft="12dp"
+                android:paddingTop="8dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="8dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@drawable/bg_corner_rect"
+                android:backgroundTint="@color/colorAccent"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:text="发送"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

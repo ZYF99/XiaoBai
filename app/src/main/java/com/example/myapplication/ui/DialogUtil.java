@@ -13,16 +13,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class DialogUtil {
 
     //弹出个人信息弹窗
-    public static void showPersonInfoDialog(Context context, Person person, OnPersonInfoItemClickListener onPersonInfoItemClickListener) {
+    public static void showPersonInfoDialog(Context context, Person person, boolean hasFollow, OnPersonInfoItemClickListener onPersonInfoItemClickListener) {
+        BottomSheetDialog dialog = new BottomSheetDialog(context);
         DialogPersonInfoBinding dialogPersonInfoBinding = DialogPersonInfoBinding.inflate(LayoutInflater.from(context));
+        dialogPersonInfoBinding.btnFollow.setText(hasFollow ? "取消关注" : "关注");
         Glide.with(dialogPersonInfoBinding.ivAvatar.getContext()).load(person.getPhotoPath()).placeholder(R.drawable.icon_message).into(dialogPersonInfoBinding.ivAvatar);
         dialogPersonInfoBinding.setPerson(person);
         dialogPersonInfoBinding.btnFollow.setOnClickListener(view ->
-                        onPersonInfoItemClickListener.onFollowClick(person)
-                //onPersonInfoItemClickListener.onUnFollowClick(person)
+                {
+                    onPersonInfoItemClickListener.onFollowClick(person);
+                    dialog.dismiss();
+                }
         );
         dialogPersonInfoBinding.btnMessage.setOnClickListener(view -> onPersonInfoItemClickListener.onSendMessageClick(person));
-        BottomSheetDialog dialog = new BottomSheetDialog(context);
+
         dialog.setContentView(dialogPersonInfoBinding.getRoot());
         dialog.show();
     }

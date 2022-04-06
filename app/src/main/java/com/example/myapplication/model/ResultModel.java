@@ -30,6 +30,8 @@ public class ResultModel<T> {
     }
 
     public String getMsg() {
+        if (msg == null)
+            return "";
         return msg;
     }
 

@@ -53,8 +53,8 @@
 
         <ImageView
             android:id="@+id/iv_message"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="72dp"
             android:src="@drawable/icon_message"

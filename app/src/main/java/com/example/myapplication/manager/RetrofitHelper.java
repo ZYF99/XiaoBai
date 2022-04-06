@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
     //服务器地址
     private static final String BASE_URL = "http://119.23.49.231:9000/";
+    public static final String BASE_FILE_URL = "http://119.23.49.231:9000/myWeb/file/";
     //private static final String BASE_URL = "http://www.weather.com.cn/";
 
     private static RetrofitHelper instance;

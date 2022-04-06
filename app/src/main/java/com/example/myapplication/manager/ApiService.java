@@ -1,6 +1,8 @@
 package com.example.myapplication.manager;
 
+import com.example.myapplication.model.Message;
 import com.example.myapplication.model.account.EditUserInfoRequestModel;
+import com.example.myapplication.model.forum.AddCommentRequestModel;
 import com.example.myapplication.model.forum.AddForumRequestModel;
 import com.example.myapplication.model.forum.Forum;
 import com.example.myapplication.model.ResultModel;
@@ -65,11 +67,11 @@ public interface ApiService {
 
     //关注或取消关注用户
     @GET("myWeb/userRelation/addLoginUserRelation")
-    Call<ResultModel<ResponseBody>> followOrCancelUser(@Query("userId") Long userId);
+    Call<ResultModel<String>> followOrCancelUser(@Query("userId") Long userId);
 
     //修改用户信息
     @POST("myWeb/user/updateUserInfo")
-    Call<ResultModel<ResponseBody>> updateUserInfo(@Body EditUserInfoRequestModel editUserInfoRequestModel);
+    Call<ResultModel<String>> updateUserInfo(@Body EditUserInfoRequestModel editUserInfoRequestModel);
 
     //*********************************************论坛相关******************************************
 
@@ -78,12 +80,37 @@ public interface ApiService {
     Call<ResultModel<List<Forum>>> getForums(@Query("type") String type);
 
     //获取论坛内容详情
-    @GET("myWeb/forum/getFormInfoById")
-    Call<ResultModel<Forum>> getForumDetail(@Query("id") long id);
+    @GET("myWeb/forum/getForumInfoById")
+    Call<ResultModel<Forum>> getForumDetail(@Query("forumId") long id);
 
     //发布论坛
     @POST("myWeb/forum/addLoginUserForums")
     Call<ResultModel<ResponseBody>> releaseForum(@Body AddForumRequestModel addForumRequestModel);
+
+    //点赞或收藏 type 1:点赞  2：收藏
+    @GET("myWeb/forum/praiseOrCollection")
+    Call<ResultModel<String>> praiseOrCollection(
+            @Query("forumId") long forumId,
+            @Query("type") int type
+    );
+
+    //发表评论
+    @POST("myWeb/forum/addComment")
+    Call<ResultModel<String>> addComment(@Body AddCommentRequestModel addCommentRequestModel);
+
+    //*********************************************消息相关******************************************
+
+    //获取点赞和收藏的消息列表
+    @GET("myWeb/note/getLoginUserPraiseOrCollection")
+    Call<ResultModel<List<Message>>> getLoginUserPraiseOrCollectionList();
+
+    //获取关注的消息列表
+    @GET("myWeb/note/getLoginUserFollow")
+    Call<ResultModel<List<Message>>> getLoginUserFollowList();
+
+    //获取评论的消息列表
+    @GET("myWeb/note/getLoginUserComment")
+    Call<ResultModel<List<Message>>> getLoginUserCommentList();
 
     //*********************************************工具相关******************************************
 

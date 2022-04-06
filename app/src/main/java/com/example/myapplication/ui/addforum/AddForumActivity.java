@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.addforum;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
@@ -43,8 +44,15 @@ public class AddForumActivity extends BaseActivity<ActivityAddForumBinding> impl
         return R.layout.activity_add_forum;
     }
 
+    AlertDialog loadingDialog;
+
     @Override
     public void initView(View view) {
+        loadingDialog = new AlertDialog.Builder(AddForumActivity.this)
+                .setMessage("发布中...")
+                .setCancelable(false)
+                .create();
+
         binding.snplMomentAddPhotos.setMaxItemCount(9);
         binding.snplMomentAddPhotos.setDelegate(this);
         binding.snplMomentAddPhotos.setSortable(true);
@@ -53,8 +61,10 @@ public class AddForumActivity extends BaseActivity<ActivityAddForumBinding> impl
         //退出进入我的页面
         binding.toolBar.setNavigationOnClickListener(view1 -> finish());
 
+
         //发布
         binding.tvMomentAddPublish.setOnClickListener(view1 -> {
+            loadingDialog.show();
             String content = binding.etMomentAddContent.getText().toString().trim();
             if (content.length() == 0 && binding.snplMomentAddPhotos.getItemCount() == 0) {
                 Toast.makeText(AddForumActivity.this, "必须填写这一刻的想法或选择照片！", Toast.LENGTH_SHORT).show();
@@ -107,6 +117,14 @@ public class AddForumActivity extends BaseActivity<ActivityAddForumBinding> impl
                     @Override
                     public void onSuccess(ResultModel<ResponseBody> response) {
                         Toast.makeText(AddForumActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
+                        loadingDialog.dismiss();
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailed(Throwable t) {
+                        super.onFailed(t);
+                        loadingDialog.dismiss();
                     }
                 }
         );

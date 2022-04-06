@@ -11,7 +11,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityForumDetailBinding;
 import com.example.myapplication.manager.RetrofitHelper;
 import com.example.myapplication.model.Person;
-import com.example.myapplication.model.forum.Comment;
+import com.example.myapplication.model.forum.AddCommentRequestModel;
 import com.example.myapplication.model.forum.Forum;
 import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.DialogUtil;
@@ -21,18 +21,18 @@ import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
 import io.rong.imkit.utils.RouteUtils;
 import io.rong.imlib.model.Conversation;
-import okhttp3.ResponseBody;
 
 public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding> implements BGASortableNinePhotoLayout.Delegate {
     public static final String KEY_FORUM_ID = "key_forum_id";
 
     CommentRecyclerAdapter commentRecyclerAdapter;
+
+    long id;
 
     @Override
     protected int getLayoutRes() {
@@ -41,6 +41,9 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
 
     @Override
     public void initView(View view) {
+
+        id = getIntent().getLongExtra(KEY_FORUM_ID, 0);
+
         //退出到设置页面
         binding.toolBar.setNavigationOnClickListener(view1 -> finish());
         commentRecyclerAdapter = new CommentRecyclerAdapter();
@@ -54,7 +57,7 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
 
             @Override
             public void onUnFollowClick(Person person) {
-                unFollowPerson(person);
+                followOrCancelPerson(person);
             }
 
             @Override
@@ -62,56 +65,111 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
                 RouteUtils.routeToConversationActivity(ForumDetailActivity.this, Conversation.ConversationType.PRIVATE, String.valueOf(person.getId()), null);
             }
         });
-        fetchForumDetail(getIntent().getIntExtra(KEY_FORUM_ID, 0));
+
+        //九宫格事件
+        binding.snplMomentAddPhotos.setDelegate(this);
+
+        //评论条
+        binding.tvComment.setOnClickListener(view12 -> {
+            binding.llComment.setVisibility(View.VISIBLE);
+            binding.editComment.requestFocus();
+        });
+
+        //评论按钮
+        binding.btnSend.setOnClickListener(view13 -> {
+            String content = binding.editComment.getText().toString();
+            if (content.isEmpty()) return;
+            comment(id, content);
+        });
+
+        //拉取论坛详情
+        fetchForumDetail(id);
     }
 
+    //根据id拉取论坛详情
     private void fetchForumDetail(long id) {
         ApiUtil.request(
                 RetrofitHelper.getApiService().getForumDetail(id),
                 new ApiAction<ResultModel<Forum>>() {
                     @Override
                     public void onSuccess(ResultModel<Forum> response) {
+                        //标题
+                        binding.toolBar.setTitle(response.getData().getRealName());
+
+                        //内容
+                        binding.tvContent.setText(response.getData().getArticleText());
+
+                        //九宫格图片
+                        binding.snplMomentAddPhotos.setData(response.getData().getImageList());
+
+                        //评论列表
+                        commentRecyclerAdapter.replaceData(response.getData().getCommentList());
+
+                        //点赞
+                        String likePrefString = response.getData().isPraise() ? "已赞" : "赞";
+                        binding.tvLike.setText(likePrefString + " " + response.getData().getPraiseNum());
+                        binding.tvLike.setOnClickListener(view -> like(id));
+
+                        //收藏
+                        String collectionPrefString = response.getData().isCollect() ? "已收藏" : "收藏";
+                        binding.tvCollection.setText(collectionPrefString + " " + response.getData().getCollectNum());
+                        binding.tvCollection.setOnClickListener(view -> collect(id));
 
                     }
                 }
         );
 
-        ArrayList<String> imgList = new ArrayList<>();
-        String a = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic24.nipic.com%2F20121029%2F6741879_162040605197_2.jpg&refer=http%3A%2F%2Fpic24.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651304271&t=992ec591f3d610c99ba2c0f1fea5d0bf";
-        imgList.add(a);
-        imgList.add(a);
 
-        //九宫格图片
-        binding.snplMomentAddPhotos.setData(imgList);
-        binding.snplMomentAddPhotos.setDelegate(this);
-
-        //评论列表
-        List<Comment> comments = new ArrayList<>();
-        comments.add(new Comment(new Person("2131423@qq.com", 959393354200645632l, "", "XXX"), "哈哈哈哈哈", 214124324));
-        comments.add(new Comment(new Person("2131423@qq.com", 959393354200645632l, "", "XXX"), "测试测试", 214124324));
-        comments.add(new Comment(new Person("2131423@qq.com", 959393354200645632l, "", "XXX"), "耶耶耶耶耶耶", 214124324));
-        commentRecyclerAdapter.replaceData(comments);
     }
 
+    //关注或取消关注
     private void followOrCancelPerson(Person person) {
         ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
-                new ApiAction<ResultModel<ResponseBody>>() {
+                new ApiAction<ResultModel<String>>() {
                     @Override
-                    public void onSuccess(ResultModel<ResponseBody> response) {
-
+                    public void onSuccess(ResultModel<String> response) {
+                        fetchForumDetail(id);
                     }
                 });
     }
 
-    private void unFollowPerson(Person person) {
-        ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
-                new ApiAction<ResultModel<ResponseBody>>() {
+    //点赞
+    private void like(long id) {
+        ApiUtil.request(RetrofitHelper.getApiService().praiseOrCollection(id, 1),
+                new ApiAction<ResultModel<String>>() {
                     @Override
-                    public void onSuccess(ResultModel<ResponseBody> response) {
-
+                    public void onSuccess(ResultModel<String> response) {
+                        fetchForumDetail(id);
                     }
                 });
     }
+
+    //收藏
+    private void collect(long id) {
+        ApiUtil.request(RetrofitHelper.getApiService().praiseOrCollection(id, 2),
+                new ApiAction<ResultModel<String>>() {
+                    @Override
+                    public void onSuccess(ResultModel<String> response) {
+                        fetchForumDetail(id);
+                    }
+                });
+    }
+
+    //评论
+    private void comment(long id, String content) {
+        ApiUtil.request(RetrofitHelper.getApiService().addComment(
+                new AddCommentRequestModel(content, id)
+                ),
+                new ApiAction<ResultModel<String>>() {
+                    @Override
+                    public void onSuccess(ResultModel<String> response) {
+                        binding.llComment.setVisibility(View.GONE);
+                        binding.editComment.setText("");
+                        fetchForumDetail(id);
+                    }
+                });
+    }
+
 
     @Override
     public void onClickAddNinePhotoItem(BGASortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {

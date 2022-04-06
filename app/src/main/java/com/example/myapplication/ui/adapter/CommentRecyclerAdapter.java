@@ -1,10 +1,9 @@
 package com.example.myapplication.ui.adapter;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ItemCommentBinding;
-import com.example.myapplication.model.Person;
 import com.example.myapplication.model.forum.Comment;
-import com.example.myapplication.ui.DateUtil;
 import com.example.myapplication.ui.DialogUtil;
 
 public class CommentRecyclerAdapter extends BaseRecyclerAdapter<Comment, ItemCommentBinding> {
@@ -24,11 +23,7 @@ public class CommentRecyclerAdapter extends BaseRecyclerAdapter<Comment, ItemCom
     public void bindData(ItemCommentBinding binding, int position) {
         Comment comment = baseList.get(position);
         binding.setComment(comment);
-        binding.tvTime.setText(DateUtil.formatDate(comment.getTime()));
-        binding.ivAvatar.setOnClickListener(view -> DialogUtil.showPersonInfoDialog(
-                binding.ivAvatar.getContext(),
-                new Person("2131423@qq.com", 959393354200645632l, comment.getPerson().getPhotoPath(), "XXX"),
-                onPersonInfoItemClickListener
-        ));
+        //头像
+        Glide.with(binding.ivAvatar.getContext()).load(comment.getAvatar()).into(binding.ivAvatar);
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="forum"
             type="com.example.myapplication.model.forum.Forum" />
@@ -45,7 +46,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/icon_mine"
+                        android:src="@drawable/icon_message"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +64,7 @@
                             android:id="@+id/tv_dynamic_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="秋风"
+                            android:text="@{forum.realName}"
                             android:textColor="@color/black"
                             tools:text="秋风" />
 
@@ -71,6 +72,7 @@
                             android:id="@+id/tv_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{forum.time}"
                             android:textColor="#888888"
                             android:textSize="12sp"
                             tools:text="昨天" />
@@ -85,7 +87,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
                         android:lineSpacingExtra="4dp"
-                        android:text="@{forum.content}"
+                        android:text="@{forum.articleText}"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -109,35 +111,10 @@
                     app:bga_snpl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
                     app:bga_snpl_plusEnable="false"
                     app:bga_snpl_sortable="false"
-                    app:layout_constraintBottom_toTopOf="@id/frame_like"
+                    app:layout_constraintBottom_toTopOf="@id/lin_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_content" />
-
-                <LinearLayout
-                    android:id="@+id/frame_like"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/lin_btn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:gravity="center"
-                        android:text="10人觉得很赞"
-                        android:textAlignment="center"
-                        android:textSize="12sp"
-                        tools:text="10人觉得很赞" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/lin_btn"
@@ -152,7 +129,7 @@
 
 
                     <TextView
-                        android:id="@+id/btn_like"
+                        android:id="@+id/tv_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -175,7 +152,7 @@
                         android:background="#7CE2E2E2" />
 
                     <TextView
-                        android:id="@+id/btn_collection"
+                        android:id="@+id/tv_collection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -198,7 +175,7 @@
                         android:background="#7CE2E2E2" />
 
                     <TextView
-                        android:id="@+id/btn_commit"
+                        android:id="@+id/tv_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

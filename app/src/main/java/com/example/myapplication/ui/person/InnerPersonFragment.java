@@ -48,7 +48,7 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
         personRecyclerAdapter.setOnInnerItemClickListener(new PersonRecyclerAdapter.OnInnerItemClickListener() {
             @Override
             public void onAvatarClick(Person person) {
-                DialogUtil.showPersonInfoDialog(getContext(), person, new DialogUtil.OnPersonInfoItemClickListener() {
+                DialogUtil.showPersonInfoDialog(getContext(), person, true, new DialogUtil.OnPersonInfoItemClickListener() {
                     @Override
                     public void onFollowClick(Person person) {
                         //关注
@@ -102,9 +102,9 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
 
     private void followOrCancelUSer(Person person) {
         ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
-                new ApiAction<ResultModel<ResponseBody>>() {
+                new ApiAction<ResultModel<String>>() {
                     @Override
-                    public void onSuccess(ResultModel<ResponseBody> response) {
+                    public void onSuccess(ResultModel<String> response) {
                         initList();
                     }
                 });

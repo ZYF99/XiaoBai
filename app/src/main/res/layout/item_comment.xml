@@ -32,20 +32,21 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{comment.person.realName}"
+                android:text="@{comment.realName}"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="14dp"
                 tools:text="name" />
 
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{comment.content}"
+                android:text="@{comment.comments}"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16dp"
                 tools:text="content" />
 
             <LinearLayout
@@ -57,11 +58,11 @@
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="2020-3-9"
-                    android:textColor="@color/black" />
+                    android:text="@{comment.time}"
+                    tools:text="2020-1-1 14:00"
+                    android:textColor="#848484" />
 
             </LinearLayout>
 

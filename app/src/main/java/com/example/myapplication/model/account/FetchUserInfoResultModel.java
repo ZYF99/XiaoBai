@@ -1,5 +1,7 @@
 package com.example.myapplication.model.account;
 
+import com.example.myapplication.manager.RetrofitHelper;
+
 public class FetchUserInfoResultModel {
     String email;
     Long id;
@@ -39,6 +41,10 @@ public class FetchUserInfoResultModel {
 
     public String getPhotoPath() {
         return photoPath;
+    }
+
+    public String getAvatar() {
+        return RetrofitHelper.BASE_FILE_URL + photoPath;
     }
 
     public void setPhotoPath(String photoPath) {

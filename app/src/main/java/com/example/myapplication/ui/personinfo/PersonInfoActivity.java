@@ -26,7 +26,6 @@ import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -61,7 +60,7 @@ public class PersonInfoActivity extends BaseActivity<ActivityEditInfoBinding> {
                     @Override
                     public void onSuccess(ResultModel<FetchUserInfoResultModel> response) {
                         userInfoResultModel = response.getData();
-                        Glide.with(binding.ivAvatar.getContext()).load(response.getData().getPhotoPath()).into(binding.ivAvatar);
+                        Glide.with(binding.ivAvatar.getContext()).load(response.getData().getAvatar()).into(binding.ivAvatar);
                         binding.tvName.setText(response.getData().getRealName());
                     }
                 });
@@ -116,10 +115,11 @@ public class PersonInfoActivity extends BaseActivity<ActivityEditInfoBinding> {
                         editUserInfoRequestModel.setId(userInfoResultModel.getId());
                         ApiUtil.request(
                                 RetrofitHelper.getApiService().updateUserInfo(editUserInfoRequestModel),
-                                new ApiAction<ResultModel<ResponseBody>>() {
+                                new ApiAction<ResultModel<String>>() {
                                     @Override
-                                    public void onSuccess(ResultModel<ResponseBody> response) {
+                                    public void onSuccess(ResultModel<String> response) {
                                         Toast.makeText(PersonInfoActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                        fetchUserInfo();
                                     }
                                 });
                     }
@@ -134,10 +134,11 @@ public class PersonInfoActivity extends BaseActivity<ActivityEditInfoBinding> {
         editUserInfoRequestModel.setId(userInfoResultModel.getId());
         ApiUtil.request(
                 RetrofitHelper.getApiService().updateUserInfo(editUserInfoRequestModel),
-                new ApiAction<ResultModel<ResponseBody>>() {
+                new ApiAction<ResultModel<String>>() {
                     @Override
-                    public void onSuccess(ResultModel<ResponseBody> response) {
+                    public void onSuccess(ResultModel<String> response) {
                         Toast.makeText(PersonInfoActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                        fetchUserInfo();
                     }
                 });
     }

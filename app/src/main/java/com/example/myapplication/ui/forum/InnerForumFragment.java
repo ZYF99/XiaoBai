@@ -64,12 +64,12 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
         forumRecyclerAdapter.setOnPersonInfoItemClickListener(new DialogUtil.OnPersonInfoItemClickListener() {
             @Override
             public void onFollowClick(Person person) {
-                followPerson(person);
+                followOrCancel(person);
             }
 
             @Override
             public void onUnFollowClick(Person person) {
-                unFollowPerson(person);
+                followOrCancel(person);
             }
 
             @Override
@@ -80,12 +80,12 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
         forumRecyclerAdapter.setOnBottomFunctionClickListener(new ForumRecyclerAdapter.OnBottomFunctionClickListener() {
             @Override
             public void onLikeClick(Forum forum) {
-
+                like(forum);
             }
 
             @Override
             public void onCollectionClick(Forum forum) {
-
+                collection(forum);
             }
 
             @Override
@@ -137,26 +137,40 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
                 });
     }
 
-    private void followPerson(Person person) {
-        ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
-                new ApiAction<ResultModel<ResponseBody>>() {
+    //点赞
+    private void like(Forum forum) {
+        ApiUtil.request(RetrofitHelper.getApiService().praiseOrCollection(forum.getId(), 1),
+                new ApiAction<ResultModel<String>>() {
                     @Override
-                    public void onSuccess(ResultModel<ResponseBody> response) {
-
-                    }
-                });
-    }
-
-    private void unFollowPerson(Person person) {
-        ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
-                new ApiAction<ResultModel<ResponseBody>>() {
-                    @Override
-                    public void onSuccess(ResultModel<ResponseBody> response) {
+                    public void onSuccess(ResultModel<String> response) {
                         initList();
                     }
                 });
     }
 
+    //收藏
+    private void collection(Forum forum) {
+        ApiUtil.request(RetrofitHelper.getApiService().praiseOrCollection(forum.getId(), 2),
+                new ApiAction<ResultModel<String>>() {
+                    @Override
+                    public void onSuccess(ResultModel<String> response) {
+                        initList();
+                    }
+                });
+    }
+
+    //关注或取消关注用户
+    private void followOrCancel(Person person) {
+        ApiUtil.request(RetrofitHelper.getApiService().followOrCancelUser(person.getId()),
+                new ApiAction<ResultModel<String>>() {
+                    @Override
+                    public void onSuccess(ResultModel<String> response) {
+                        initList();
+                    }
+                });
+    }
+
+    //跳转至论坛详情
     private void jumpToForumDetail(Context context, long forumId) {
         Intent intent = new Intent(context, ForumDetailActivity.class);
         intent.putExtra(KEY_FORUM_ID, forumId);

@@ -33,7 +33,7 @@
         <entry key="app/src/main/res/layout/activity_fans.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_file_manage.xml" value="0.14375" />
         <entry key="app/src/main/res/layout/activity_focus.xml" value="0.20925925925925926" />
-        <entry key="app/src/main/res/layout/activity_forum_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_forum_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.10364583333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_main10.xml" value="0.1" />
@@ -70,7 +70,7 @@
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_tech.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/item_forum.xml" value="0.222125244140625" />
+        <entry key="app/src/main/res/layout/item_forum.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_person.xml" value="0.28630981445312503" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.246484375" />

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 import com.example.myapplication.databinding.FragmentMineBinding;
 import com.example.myapplication.manager.RetrofitHelper;
 import com.example.myapplication.model.ResultModel;
@@ -16,9 +18,6 @@ import com.example.myapplication.ui.adapter.TabFragmentAdapter;
 import com.example.myapplication.ui.forum.InnerForumFragment;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
-import com.example.myapplication.util.HawkKey;
-import com.orhanobut.hawk.Hawk;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +66,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
                 new ApiAction<ResultModel<FetchUserInfoResultModel>>() {
                     @Override
                     public void onSuccess(ResultModel<FetchUserInfoResultModel> response) {
+                        Glide.with(binding.ivAvatar.getContext()).load(response.getData().getAvatar()).into(binding.ivAvatar);
                         binding.tvUserName.setText(response.getData().getRealName());
                     }
                 });
