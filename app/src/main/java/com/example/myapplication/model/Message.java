@@ -4,14 +4,24 @@ import com.example.myapplication.model.forum.Comment;
 import com.example.myapplication.model.forum.Forum;
 
 public class Message {
+    long id;
     String type;
     Forum forum;
     Comment comment;
 
-    public Message(String type, Forum forum, Comment comment) {
+    public Message(long id, String type, Forum forum, Comment comment) {
+        this.id = id;
         this.type = type;
         this.forum = forum;
         this.comment = comment;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getMessage() {

@@ -23,16 +23,6 @@
                 app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
                 app:title="昵称" />
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/main_14searchView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:iconifiedByDefault="false"
-                android:queryHint="请输入搜索内容" />
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tl_person"
                 android:layout_width="match_parent"
@@ -52,7 +42,6 @@
             </com.google.android.material.tabs.TabLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
-
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_person"

@@ -2,6 +2,8 @@ package com.example.myapplication.ui.forumdetail;
 
 import static com.example.myapplication.ui.addforum.AddForumActivity.RC_PHOTO_PREVIEW;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 
@@ -19,6 +21,8 @@ import com.example.myapplication.ui.adapter.CommentRecyclerAdapter;
 import com.example.myapplication.ui.base.BaseActivity;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 
@@ -69,6 +73,14 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
         //九宫格事件
         binding.snplMomentAddPhotos.setDelegate(this);
 
+        //删除
+        binding.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDeleteDialog();
+            }
+        });
+
         //评论条
         binding.tvComment.setOnClickListener(view12 -> {
             binding.llComment.setVisibility(View.VISIBLE);
@@ -105,6 +117,13 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
                         //评论列表
                         commentRecyclerAdapter.replaceData(response.getData().getCommentList());
 
+                        //删除按钮
+                        if (response.getData().getUserId() == Hawk.get(HawkKey.KEY_ID, 0l)) {
+                            binding.ivDelete.setVisibility(View.VISIBLE);
+                        }else {
+                            binding.ivDelete.setVisibility(View.GONE);
+                        }
+
                         //点赞
                         String likePrefString = response.getData().isPraise() ? "已赞" : "赞";
                         binding.tvLike.setText(likePrefString + " " + response.getData().getPraiseNum());
@@ -119,7 +138,25 @@ public class ForumDetailActivity extends BaseActivity<ActivityForumDetailBinding
                 }
         );
 
+    }
 
+    //删除弹窗
+    private void showDeleteDialog() {
+        new AlertDialog.Builder(ForumDetailActivity.this)
+                .setTitle("确定要删除该内容吗？")
+                .setPositiveButton("确定", (dialogInterface, i) -> {
+                    ApiUtil.request(RetrofitHelper.getApiService().deleteForum(id), new ApiAction<ResultModel<String>>() {
+                        @Override
+                        public void onSuccess(ResultModel<String> response) {
+                            finish();
+                        }
+                    });
+                })
+                .setNegativeButton("取消", (dialogInterface, i) -> {
+
+                })
+                .create()
+                .show();
     }
 
     //关注或取消关注

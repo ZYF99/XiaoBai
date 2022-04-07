@@ -1,7 +1,10 @@
 package com.example.myapplication.ui.person;
 
+import android.os.Build;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.R;
@@ -19,6 +22,8 @@ import com.example.myapplication.util.HawkKey;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import io.rong.imkit.utils.RouteUtils;
 import io.rong.imlib.model.Conversation;
@@ -29,6 +34,7 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
     String tag;
     PersonRecyclerAdapter personRecyclerAdapter;
     boolean isFollowOther; //是否是"我的关注"界面
+    List<Person> netList;
 
     @Override
     protected int getLayoutRes() {
@@ -40,9 +46,29 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
         this.isFollowOther = tag.equals("关注");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void initView(View view) {
         personRecyclerAdapter = new PersonRecyclerAdapter(isFollowOther);
+        binding.searchView.setVisibility(View.VISIBLE);
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                personRecyclerAdapter.replaceData(personRecyclerAdapter.baseList.stream().filter(
+                        person -> person.getRealName().contains(newText)
+                ).collect(Collectors.toList()));
+                return false;
+            }
+        });
+        binding.searchView.setOnCloseListener(() -> {
+            personRecyclerAdapter.replaceData(netList);
+            return false;
+        });
         binding.refreshLayout.setOnRefreshListener(this::initList);
         personRecyclerAdapter.setOnInnerItemClickListener(new PersonRecyclerAdapter.OnInnerItemClickListener() {
             @Override
@@ -90,6 +116,7 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
                         if (tag.equals("粉丝")) list = response.getData().getFans();
                         else list = response.getData().getFollows();
                         personRecyclerAdapter.replaceData(list);
+                        netList = list;
                         binding.refreshLayout.setRefreshing(false);
                     }
 

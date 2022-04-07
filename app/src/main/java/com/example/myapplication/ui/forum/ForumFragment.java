@@ -35,9 +35,7 @@ public class ForumFragment extends BaseFragment<FragmentForumBinding> {
         vpAdapter = new TabFragmentAdapter(getChildFragmentManager(), forumFragments,titles);
         binding.vpForum.setAdapter(vpAdapter);
         binding.tlForum.setupWithViewPager(binding.vpForum);
-        binding.ivAddForum.setOnClickListener(view1 -> {
-            jumpToAddForum(getContext());
-        });
+        binding.fabAdd.setOnClickListener(view1 -> jumpToAddForum(getContext()));
     }
 
     private void jumpToAddForum(Context context){

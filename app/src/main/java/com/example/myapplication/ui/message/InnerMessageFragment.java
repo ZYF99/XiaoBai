@@ -2,6 +2,8 @@ package com.example.myapplication.ui.message;
 
 import static com.example.myapplication.ui.forumdetail.ForumDetailActivity.KEY_FORUM_ID;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 
@@ -49,8 +51,10 @@ public class InnerMessageFragment extends BaseFragment<FragmentInnerListBinding>
             switch (message.getType()) {
                 case "PRAISE":
                 case "COLLECTION":
-                case "COMMENT":
                     jumpToForumDetail(message.getForum().getId());
+                    break;
+                case "COMMENT":
+                    jumpToForumDetail(message.getComment().getForumId());
                     break;
                 case "FOLLOW":
                     Intent intent = new Intent(getContext(), FansActivity.class);
@@ -60,6 +64,7 @@ public class InnerMessageFragment extends BaseFragment<FragmentInnerListBinding>
                     break;
             }
         });
+        messageRecyclerAdapter.setOnItemLongClickListener(message -> showDeleteDialog(message));
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvList.setAdapter(messageRecyclerAdapter);
         binding.refreshLayout.setOnRefreshListener(this::initList);
@@ -67,7 +72,6 @@ public class InnerMessageFragment extends BaseFragment<FragmentInnerListBinding>
     }
 
     private void initList() {
-
         binding.refreshLayout.setRefreshing(true);
         Call<ResultModel<List<Message>>> call;
         switch (tag) {
@@ -99,6 +103,26 @@ public class InnerMessageFragment extends BaseFragment<FragmentInnerListBinding>
                         binding.refreshLayout.setRefreshing(false);
                     }
                 });
+    }
+
+    //删除弹窗
+    private void showDeleteDialog(Message message) {
+        new AlertDialog.Builder(getContext())
+                .setMessage("确定要删除该消息吗")
+                .setPositiveButton("确定", (dialogInterface, i) -> ApiUtil.request(
+                        RetrofitHelper.getApiService().deleteMessageById(message.getId()),
+                        new ApiAction<ResultModel<String>>() {
+                            @Override
+                            public void onSuccess(ResultModel<String> response) {
+                                initList();
+                            }
+                        }))
+                .setNegativeButton("取消", (dialogInterface, i) -> {
+
+                })
+                .create()
+                .show();
+
     }
 
     //跳转至论坛详情

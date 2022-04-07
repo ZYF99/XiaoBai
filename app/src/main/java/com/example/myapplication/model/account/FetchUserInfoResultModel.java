@@ -7,12 +7,22 @@ public class FetchUserInfoResultModel {
     Long id;
     String realName;
     String photoPath;
+    boolean isComment;
 
-    public FetchUserInfoResultModel(String email, Long id, String realName, String photoPath) {
+    public FetchUserInfoResultModel(String email, Long id, String realName, String photoPath, boolean isComment) {
         this.email = email;
         this.id = id;
         this.realName = realName;
         this.photoPath = photoPath;
+        this.isComment = isComment;
+    }
+
+    public boolean isComment() {
+        return isComment;
+    }
+
+    public void setComment(boolean comment) {
+        isComment = comment;
     }
 
     public String getEmail() {

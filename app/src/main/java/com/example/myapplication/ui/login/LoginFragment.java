@@ -77,6 +77,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
                                         Hawk.put(HawkKey.KEY_EMAIL, email);
                                         Hawk.put(HawkKey.KEY_PASSWORD, password);
                                         Hawk.put(HawkKey.KEY_HAS_LOGIN, true);
+                                        Hawk.put(HawkKey.KEY_ID, userInfo.getData().getId());
                                     }
                                 });
                     }

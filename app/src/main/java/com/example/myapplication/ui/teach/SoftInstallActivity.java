@@ -1,19 +1,27 @@
 package com.example.myapplication.ui.teach;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.databinding.ActivitySoftInstallBinding;
+import com.example.myapplication.ui.base.BaseActivity;
 
 //教程软件安装界面
-public class SoftInstallActivity extends AppCompatActivity {
+public class SoftInstallActivity extends BaseActivity<ActivitySoftInstallBinding> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_soft_install);
+    protected int getLayoutRes() {
+        return R.layout.activity_soft_install;
+    }
+
+    @Override
+    public void initView(View view) {
+        //返回
+        binding.toolBar.setNavigationOnClickListener(view1 -> {
+            finish();
+        });
         //点击进入Microsoft网址
         TextView Microfsft = (TextView) findViewById(R.id.main6_edittext2);
         Microfsft.setMovementMethod(LinkMovementMethod.getInstance());

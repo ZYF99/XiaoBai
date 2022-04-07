@@ -135,6 +135,14 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
                 });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (forumRecyclerAdapter != null) {
+            initList();
+        }
+    }
+
     //点赞
     private void like(Forum forum) {
         ApiUtil.request(RetrofitHelper.getApiService().praiseOrCollection(forum.getId(), 1),

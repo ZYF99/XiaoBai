@@ -98,6 +98,10 @@ public interface ApiService {
     @POST("myWeb/forum/addComment")
     Call<ResultModel<String>> addComment(@Body AddCommentRequestModel addCommentRequestModel);
 
+    //删除动态
+    @GET("myWeb/forum/deleteForumById")
+    Call<ResultModel<String>> deleteForum(@Query("forumId")long forumId);
+
     //*********************************************消息相关******************************************
 
     //获取点赞和收藏的消息列表
@@ -111,6 +115,10 @@ public interface ApiService {
     //获取评论的消息列表
     @GET("myWeb/note/getLoginUserComment")
     Call<ResultModel<List<Message>>> getLoginUserCommentList();
+
+    //根据ID删除消息
+    @GET("myWeb/note/deleteNoteById")
+    Call<ResultModel<String>> deleteMessageById(@Query("noteId")long id);
 
     //*********************************************工具相关******************************************
 

@@ -5,6 +5,15 @@ public class EditUserInfoRequestModel {
     long id;
     String photoPath;
     String realName;
+    boolean isComment;
+
+    public boolean isComment() {
+        return isComment;
+    }
+
+    public void setComment(boolean comment) {
+        isComment = comment;
+    }
 
     public String getEmail() {
         return email;

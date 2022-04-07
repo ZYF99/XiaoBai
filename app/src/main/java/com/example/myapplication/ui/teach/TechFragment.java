@@ -11,17 +11,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.databinding.FragmentTechBinding;
+import com.example.myapplication.ui.base.BaseFragment;
 
-public class TechFragment extends Fragment {
-    @Nullable
+public class TechFragment extends BaseFragment<FragmentTechBinding> {
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_tech, null);
+    protected int getLayoutRes() {
+        return R.layout.fragment_tech;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void initView(View view) {
 
         //跳转进入软件安装页面
         TextView firstEdit = view.findViewById((R.id.main3_edittext1));

@@ -30,10 +30,11 @@
         <entry key="app/src/main/res/drawable/nav_selector_find.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_setting_cell.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_forum.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_computer_standard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_fans.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_file_manage.xml" value="0.14375" />
         <entry key="app/src/main/res/layout/activity_focus.xml" value="0.20925925925925926" />
-        <entry key="app/src/main/res/layout/activity_forum_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_forum_detail.xml" value="0.22828521728515627" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.10364583333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_main10.xml" value="0.1" />
@@ -55,7 +56,8 @@
         <entry key="app/src/main/res/layout/activity_person_info.xml" value="0.13072916666666667" />
         <entry key="app/src/main/res/layout/activity_secret.xml" value="0.13072916666666667" />
         <entry key="app/src/main/res/layout/activity_setting.xml" value="0.125" />
-        <entry key="app/src/main/res/layout/activity_soft_install.xml" value="0.2838541666666667" />
+        <entry key="app/src/main/res/layout/activity_soft_install.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_software.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_edit_name.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_person_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit_info.xml" value="0.116583251953125" />
@@ -65,7 +67,7 @@
         <entry key="app/src/main/res/layout/fragment_inner_message.xml" value="0.16145833333333334" />
         <entry key="app/src/main/res/layout/fragment_inner_person.xml" value="0.1638888888888889" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15443267822265627" />
-        <entry key="app/src/main/res/layout/fragment_message.xml" value="0.11" />
+        <entry key="app/src/main/res/layout/fragment_message.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_mine.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_tech.xml" value="0.125" />
