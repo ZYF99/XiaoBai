@@ -59,7 +59,7 @@ public class InnerPersonFragment extends BaseFragment<FragmentInnerListBinding> 
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                personRecyclerAdapter.replaceData(personRecyclerAdapter.baseList.stream().filter(
+                personRecyclerAdapter.replaceData(netList.stream().filter(
                         person -> person.getRealName().contains(newText)
                 ).collect(Collectors.toList()));
                 return false;

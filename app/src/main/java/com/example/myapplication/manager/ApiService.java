@@ -39,7 +39,7 @@ public interface ApiService {
 
     //根据id获取用户信息
     @GET("myWeb/user/getUserInfoById")
-    Call<ResultModel<FetchUserInfoResultModel>> getUserInfoById();
+    Call<ResultModel<FetchUserInfoResultModel>> getUserInfoById(@Query("id")String id);
 
     //注册用户
     @POST("myWeb/sys/registerUser")

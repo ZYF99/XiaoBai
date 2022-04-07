@@ -2,6 +2,7 @@ package com.example.myapplication.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 
 import androidx.navigation.Navigation;
@@ -22,7 +23,10 @@ import com.example.myapplication.util.HawkKey;
 import com.orhanobut.hawk.Hawk;
 
 import io.rong.imkit.RongIM;
+import io.rong.imkit.userinfo.RongUserInfoManager;
+import io.rong.imkit.userinfo.UserDataProvider;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
 
@@ -66,42 +70,16 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
                                     @Override
                                     public void onSuccess(ResultModel<FetchUserInfoResultModel> userInfo) {
                                         Hawk.put(HawkKey.KEY_NAME, userInfo.getData().getRealName());
-                                        ApiUtil.request(RetrofitHelper.getApiService().getRongCloudToken(email, userInfo.getData().getId().toString()),
-                                                new ApiAction<ResultModel<String>>() {
-                                                    @Override
-                                                    public void onSuccess(ResultModel<String> rongResult) {
-                                                        loginToRongCloud(rongResult.getData());
-                                                    }
-                                                });
-                                        MainActivity.jumpToMain(context);
                                         Hawk.put(HawkKey.KEY_EMAIL, email);
                                         Hawk.put(HawkKey.KEY_PASSWORD, password);
                                         Hawk.put(HawkKey.KEY_HAS_LOGIN, true);
                                         Hawk.put(HawkKey.KEY_ID, userInfo.getData().getId());
+                                        Hawk.put(HawkKey.KEY_AVATAR, userInfo.getData().getAvatar());
+                                        MainActivity.jumpToMain(context);
                                     }
                                 });
                     }
                 });
-    }
-
-    public static void loginToRongCloud(String token) {
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onSuccess(String userId) {
-                //登录成功
-                MyApplication.rongCloudConnected = true;
-            }
-
-            @Override
-            public void onError(RongIMClient.ConnectionErrorCode connectionErrorCode) {
-                connectionErrorCode.getValue();
-            }
-
-            @Override
-            public void onDatabaseOpened(RongIMClient.DatabaseOpenStatus databaseOpenStatus) {
-                databaseOpenStatus.getValue();
-            }
-        });
     }
 
 }

@@ -18,6 +18,8 @@ import com.example.myapplication.ui.addforum.AddForumActivity;
 import com.example.myapplication.ui.base.BaseActivity;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
+import com.example.myapplication.util.HawkKey;
+import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 import java.util.List;
@@ -60,6 +62,8 @@ public class PersonInfoActivity extends BaseActivity<ActivityEditInfoBinding> {
                     @Override
                     public void onSuccess(ResultModel<FetchUserInfoResultModel> response) {
                         userInfoResultModel = response.getData();
+                        Hawk.put(HawkKey.KEY_AVATAR, response.getData().getAvatar());
+                        Hawk.put(HawkKey.KEY_NAME, response.getData().getRealName());
                         Glide.with(binding.ivAvatar.getContext()).load(response.getData().getAvatar()).into(binding.ivAvatar);
                         binding.tvName.setText(response.getData().getRealName());
                     }
