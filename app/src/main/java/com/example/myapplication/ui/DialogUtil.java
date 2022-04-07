@@ -17,7 +17,7 @@ public class DialogUtil {
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         DialogPersonInfoBinding dialogPersonInfoBinding = DialogPersonInfoBinding.inflate(LayoutInflater.from(context));
         dialogPersonInfoBinding.btnFollow.setText(hasFollow ? "取消关注" : "关注");
-        Glide.with(dialogPersonInfoBinding.ivAvatar.getContext()).load(person.getPhotoPath()).placeholder(R.drawable.icon_message).into(dialogPersonInfoBinding.ivAvatar);
+        Glide.with(dialogPersonInfoBinding.ivAvatar.getContext()).load(person.getAvatar()).placeholder(R.drawable.icon_message).into(dialogPersonInfoBinding.ivAvatar);
         dialogPersonInfoBinding.setPerson(person);
         dialogPersonInfoBinding.btnFollow.setOnClickListener(view ->
                 {

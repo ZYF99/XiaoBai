@@ -153,6 +153,10 @@ public class Forum implements Serializable {
     }
 
     public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public String getAvatar() {
         return RetrofitHelper.BASE_FILE_URL + photoPath;
     }
 

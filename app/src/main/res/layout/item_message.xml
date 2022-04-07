@@ -10,84 +10,62 @@
             type="com.example.myapplication.model.Message" />
     </data>
 
-    <com.zerobranch.layout.SwipeLayout
-        android:id="@+id/swipe_layout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/drag_item"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        app:draggedItem="@id/drag_item"
-        app:rightItem="@id/right_view"
-        app:swipeDirection="left">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/white"
+        app:cardElevation="2dp">
 
-        <ImageView
-            android:id="@+id/right_view"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|end"
-            android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="24dp"
-            android:paddingBottom="8dp"
-            android:src="@drawable/rc_ic_multi_delete"
-            android:tint="#F44336" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/drag_item"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            android:background="@color/white"
-            app:cardElevation="2dp">
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_msg_type"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/icon_message"
+                android:tint="@color/colorGray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_msg_type"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/icon_message"
-                    android:tint="@color/colorGray"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_title" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{message.title}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_msg_type"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="系统消息" />
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@{message.title}"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_time"
-                    app:layout_constraintStart_toEndOf="@+id/iv_msg_type"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="系统消息" />
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{message.message}"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_msg_type"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:text="系统消息" />
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:padding="4dp"
-                    android:text='2022-1-1'
-                    android:textColor="#AAAAAA"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="RtlCompat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </com.zerobranch.layout.SwipeLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </layout>

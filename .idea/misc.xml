@@ -71,7 +71,7 @@
         <entry key="app/src/main/res/layout/fragment_tech.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_forum.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_message.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_message.xml" value="0.15376129150390624" />
         <entry key="app/src/main/res/layout/item_person.xml" value="0.28630981445312503" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.246484375" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.2125" />

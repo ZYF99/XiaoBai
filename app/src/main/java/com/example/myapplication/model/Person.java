@@ -1,16 +1,28 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.manager.RetrofitHelper;
+
 public class Person {
     String email;
     long id;
     String photoPath;
     String realName;
+    boolean isFollow;
 
-    public Person(String email, long id, String photoPath, String realName) {
+    public Person(String email, long id, String photoPath, String realName, boolean isFollow) {
         this.email = email;
         this.id = id;
         this.photoPath = photoPath;
         this.realName = realName;
+        this.isFollow = isFollow;
+    }
+
+    public boolean isFollow() {
+        return isFollow;
+    }
+
+    public void setFollow(boolean follow) {
+        isFollow = follow;
     }
 
     public String getEmail() {
@@ -31,6 +43,10 @@ public class Person {
 
     public String getPhotoPath() {
         return photoPath;
+    }
+
+    public String getAvatar() {
+        return RetrofitHelper.BASE_FILE_URL + photoPath;
     }
 
     public void setPhotoPath(String photoPath) {

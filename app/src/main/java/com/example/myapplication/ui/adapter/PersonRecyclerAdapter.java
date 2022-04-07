@@ -1,7 +1,5 @@
 package com.example.myapplication.ui.adapter;
 
-import android.view.View;
-
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ItemPersonBinding;
@@ -25,10 +23,15 @@ public class PersonRecyclerAdapter extends BaseRecyclerAdapter<Person, ItemPerso
     public void bindData(ItemPersonBinding binding, int position) {
         Person person = baseList.get(position);
         binding.setPerson(person);
-        Glide.with(binding.ivAvatar.getContext()).load(person.getPhotoPath()).placeholder(R.drawable.icon_account).into(binding.ivAvatar);
-        binding.btnUnfollow.setVisibility(isFollowOther ? View.VISIBLE : View.GONE);
+        Glide.with(binding.ivAvatar.getContext()).load(person.getAvatar()).placeholder(R.drawable.icon_account).into(binding.ivAvatar);
+        //binding.btnUnfollow.setVisibility(isFollowOther ? View.VISIBLE : View.GONE);
+        if (person.isFollow()) binding.btnFollowFunction.setText("取消关注");
+        else binding.btnFollowFunction.setText("关注");
         binding.ivAvatar.setOnClickListener(view -> onInnerItemClickListener.onAvatarClick(person));
-        binding.btnUnfollow.setOnClickListener(view -> onInnerItemClickListener.onUnFollowClick(person));
+        binding.btnFollowFunction.setOnClickListener(view -> {
+            if (person.isFollow()) onInnerItemClickListener.onUnFollowClick(person);
+            else onInnerItemClickListener.onFollowClick(person);
+        });
     }
 
     public void setOnInnerItemClickListener(OnInnerItemClickListener onInnerItemClickListener) {
@@ -37,6 +40,8 @@ public class PersonRecyclerAdapter extends BaseRecyclerAdapter<Person, ItemPerso
 
     public interface OnInnerItemClickListener {
         void onAvatarClick(Person person);
+
+        void onFollowClick(Person person);
 
         void onUnFollowClick(Person person);
     }

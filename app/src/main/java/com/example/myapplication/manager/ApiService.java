@@ -63,7 +63,7 @@ public interface ApiService {
 
     //获取粉丝和关注的人
     @GET("myWeb/userRelation/getLoginUserRelation")
-    Call<ResultModel<FetchFansAndFocusResultModel>> fetchFansAndFollows(@Query("realName") String realName);
+    Call<ResultModel<FetchFansAndFocusResultModel>> fetchFansAndFollows();
 
     //关注或取消关注用户
     @GET("myWeb/userRelation/addLoginUserRelation")

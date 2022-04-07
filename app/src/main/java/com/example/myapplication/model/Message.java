@@ -14,6 +14,19 @@ public class Message {
         this.comment = comment;
     }
 
+    public String getMessage() {
+        switch (type) {
+            case "PRAISE":
+            case "COLLECTION":
+            case "COMMENT":
+                return "点击查看详情";
+            case "FOLLOW":
+                return "快去粉丝列表查看吧";
+            default:
+                return "";
+        }
+    }
+
     public Forum getForum() {
         return forum;
     }

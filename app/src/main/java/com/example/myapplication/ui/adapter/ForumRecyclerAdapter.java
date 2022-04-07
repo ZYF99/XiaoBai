@@ -42,7 +42,7 @@ public class ForumRecyclerAdapter extends BaseRecyclerAdapter<Forum, ItemForumBi
         binding.setForum(forum);
 
         //头像
-        Glide.with(binding.ivAvatar.getContext()).load(forum.getPhotoPath()).into(binding.ivAvatar);
+        Glide.with(binding.ivAvatar.getContext()).load(forum.getAvatar()).into(binding.ivAvatar);
 
         //时间
         binding.tvTime.setText(forum.getCreateTime().split("T")[0]);
@@ -56,7 +56,7 @@ public class ForumRecyclerAdapter extends BaseRecyclerAdapter<Forum, ItemForumBi
             if (!forum.getCreatName().equals(Hawk.get(HawkKey.KEY_EMAIL))) {
                 DialogUtil.showPersonInfoDialog(
                         binding.ivAvatar.getContext(),
-                        new Person(forum.getCreatName(), forum.getUserId(), forum.getPhotoPath(), forum.getRealName()),
+                        new Person(forum.getCreatName(), forum.getUserId(), forum.getPhotoPath(), forum.getRealName(), forum.isFollow()),
                         forum.isFollow(),
                         onPersonInfoItemClickListener
                 );

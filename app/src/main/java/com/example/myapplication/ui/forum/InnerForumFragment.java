@@ -29,7 +29,6 @@ import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
 import io.rong.imkit.utils.RouteUtils;
 import io.rong.imlib.model.Conversation;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 //内嵌的论坛列表界面
@@ -93,7 +92,6 @@ public class InnerForumFragment extends BaseFragment<FragmentInnerListBinding> i
                 jumpToForumDetail(getContext(), forum.getId());
             }
         });
-
         initList();
     }
 

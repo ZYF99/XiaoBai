@@ -1,5 +1,8 @@
 package com.example.myapplication.ui.message;
 
+import static com.example.myapplication.ui.forumdetail.ForumDetailActivity.KEY_FORUM_ID;
+
+import android.content.Intent;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,8 +14,11 @@ import com.example.myapplication.model.ResultModel;
 import com.example.myapplication.ui.adapter.MessageRecyclerAdapter;
 import com.example.myapplication.model.Message;
 import com.example.myapplication.ui.base.BaseFragment;
+import com.example.myapplication.ui.forumdetail.ForumDetailActivity;
+import com.example.myapplication.ui.person.FansActivity;
 import com.example.myapplication.util.ApiAction;
 import com.example.myapplication.util.ApiUtil;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,6 +45,21 @@ public class InnerMessageFragment extends BaseFragment<FragmentInnerListBinding>
     @Override
     public void initView(View view) {
         messageRecyclerAdapter = new MessageRecyclerAdapter();
+        messageRecyclerAdapter.setOnCellClickListener((itemMessageBinding, message) -> {
+            switch (message.getType()) {
+                case "PRAISE":
+                case "COLLECTION":
+                case "COMMENT":
+                    jumpToForumDetail(message.getForum().getId());
+                    break;
+                case "FOLLOW":
+                    Intent intent = new Intent(getContext(), FansActivity.class);
+                    startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
+        });
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvList.setAdapter(messageRecyclerAdapter);
         binding.refreshLayout.setOnRefreshListener(this::initList);
@@ -78,6 +99,13 @@ public class InnerMessageFragment extends BaseFragment<FragmentInnerListBinding>
                         binding.refreshLayout.setRefreshing(false);
                     }
                 });
+    }
+
+    //跳转至论坛详情
+    private void jumpToForumDetail(long id) {
+        Intent intent = new Intent(getContext(), ForumDetailActivity.class);
+        intent.putExtra(KEY_FORUM_ID, id);
+        getContext().startActivity(intent);
     }
 
 }

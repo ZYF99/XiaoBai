@@ -41,9 +41,9 @@
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@{comment.comments}"
                 android:textColor="@color/black"
                 android:textSize="16dp"
@@ -61,8 +61,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@{comment.time}"
-                    tools:text="2020-1-1 14:00"
-                    android:textColor="#848484" />
+                    android:textColor="#848484"
+                    tools:text="2020-1-1 14:00" />
 
             </LinearLayout>
 
